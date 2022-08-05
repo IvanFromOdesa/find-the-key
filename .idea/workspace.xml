@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="781ecca2-c6ff-4ff8-93de-c96351517bc7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/prcatice-game.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/GamePanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+    </list>
+    <list id="cb933f19-6be4-4785-951a-8526ed4d66ca" name="Changes by Ivan" comment="">
+      <change beforePath="$PROJECT_DIR$/src/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GamePanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +27,18 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/GamePanel.java">
+      <ranges>
+        <range start1="4" end1="5" start2="4" end2="5" changelist="cb933f19-6be4-4785-951a-8526ed4d66ca" />
+        <range start1="14" end1="15" start2="14" end2="23" changelist="781ecca2-c6ff-4ff8-93de-c96351517bc7" />
+        <range start1="17" end1="17" start2="25" end2="26" changelist="781ecca2-c6ff-4ff8-93de-c96351517bc7" />
+        <range start1="22" end1="22" start2="31" end2="32" changelist="cb933f19-6be4-4785-951a-8526ed4d66ca" />
+        <range start1="25" end1="26" start2="35" end2="37" changelist="cb933f19-6be4-4785-951a-8526ed4d66ca" />
+        <range start1="28" end1="29" start2="39" end2="80" changelist="cb933f19-6be4-4785-951a-8526ed4d66ca" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
