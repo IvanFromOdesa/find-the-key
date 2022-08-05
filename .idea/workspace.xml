@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="781ecca2-c6ff-4ff8-93de-c96351517bc7" name="Changes" comment="Fix" />
-    <list id="cb933f19-6be4-4785-951a-8526ed4d66ca" name="Changes by Ivan" comment="Changes by Ivan" />
+    <list default="true" id="781ecca2-c6ff-4ff8-93de-c96351517bc7" name="Changes" comment="Update 1" />
+    <list id="cb933f19-6be4-4785-951a-8526ed4d66ca" name="Changes by Ivan" comment="Changes by Ivan">
+      <change beforePath="$PROJECT_DIR$/src/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GamePanel.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -77,28 +79,7 @@
       <option name="project" value="LOCAL" />
       <updated>1659716281373</updated>
     </task>
-    <task id="LOCAL-00003" summary="Update 1">
-      <created>1659718271451</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1659718271451</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Fix">
-      <created>1659718325966</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1659718325966</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Fix">
-      <created>1659718833328</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1659718833328</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,8 +98,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update 1" />
-    <MESSAGE value="Changes by Ivan" />
-    <MESSAGE value="Fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update 1" />
   </component>
 </project>
