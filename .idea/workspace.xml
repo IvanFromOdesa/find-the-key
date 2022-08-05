@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="781ecca2-c6ff-4ff8-93de-c96351517bc7" name="Changes" comment="First commit">
+    <list default="true" id="781ecca2-c6ff-4ff8-93de-c96351517bc7" name="Changes" comment="Update 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
+    <list id="cb933f19-6be4-4785-951a-8526ed4d66ca" name="Changes by Ivan" comment="Changes by Ivan" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,13 +33,13 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
+    &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;
-  }
-}</component>
+    }
+    }</component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
@@ -59,21 +63,21 @@
       <option name="presentableId" value="Default" />
       <updated>1659624145391</updated>
       <workItem from="1659624146769" duration="2543000" />
-      <workItem from="1659708350300" duration="3781000" />
+      <workItem from="1659708350300" duration="942000" />
     </task>
-    <task id="LOCAL-00001" summary="First commit">
-      <created>1659709477882</created>
+    <task id="LOCAL-00001" summary="Update 1">
+      <created>1659716102352</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1659709477882</updated>
+      <updated>1659716102352</updated>
     </task>
-    <task id="LOCAL-00002" summary="First commit">
-      <created>1659711400764</created>
+    <task id="LOCAL-00002" summary="Update 1">
+      <created>1659716281373</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1659711400764</updated>
+      <updated>1659716281373</updated>
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
@@ -93,7 +97,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="First commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="First commit" />
+    <MESSAGE value="Update 1" />
+    <MESSAGE value="Changes by Ivan" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by Ivan" />
   </component>
 </project>
