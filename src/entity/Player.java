@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 import static main.GamePanel.TILE_SIZE;
 
@@ -26,12 +27,12 @@ public class Player extends Entity {
         x = 100;
         y = 100;
         speed = 4;
-        direction = "up";
+        direction = "stand";
     }
 
     public void getPlayerImage() {
         try {
-            stand = ImageIO.read(getClass().getResourceAsStream("/player/Vita.png"));
+            stand = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,6 +51,8 @@ public class Player extends Entity {
         } else if(keyH.rightPressed) {
             direction = "right";
             x += speed;
+        } else {
+            direction = "stand";
         }
     }
 
@@ -57,7 +60,7 @@ public class Player extends Entity {
         BufferedImage image = null;
 
         switch (direction) {
-            case "up":
+            case "stand":
                 image = stand;
         }
 
