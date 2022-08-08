@@ -33,6 +33,8 @@ public class Player extends Entity {
     public void getPlayerImage() {
         try {
             stand = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita.png")));
+            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita_down1.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita_down2.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,6 +56,16 @@ public class Player extends Entity {
         } else {
             direction = "stand";
         }
+
+        spriteCounter++;
+        if(spriteCounter > 10) {
+            if(spriteNum == 1) {
+                spriteNum = 2;
+            } else if (spriteNum == 2) {
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -62,6 +74,11 @@ public class Player extends Entity {
         switch (direction) {
             case "stand":
                 image = stand;
+                break;
+            case "down":
+                if(spriteNum == 1) image = down1;
+                if(spriteNum == 2) image = down2;
+                break;
         }
 
         g2.drawImage(image, x, y, TILE_SIZE, TILE_SIZE, null);
