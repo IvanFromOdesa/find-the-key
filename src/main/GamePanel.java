@@ -1,6 +1,8 @@
 package main;
 
 import entity.Player;
+import lombok.Getter;
+import tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +14,9 @@ public class GamePanel extends JPanel implements Runnable {
     private static final int SCALE = 3;
 
     public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE;
+    @Getter
     private static final int MAX_SCREEN_COLUMN = 16;
+    @Getter
     private static final int MAX_SCREEN_ROW = 12;
     private static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COLUMN;
     private static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW;
@@ -23,6 +27,7 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
     Player player = new Player(this, keyH);
+    TileManager tileM = new TileManager(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -74,6 +79,8 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
+
+        tileM.draw(g2);
 
         player.draw(g2);
         g2.dispose();
