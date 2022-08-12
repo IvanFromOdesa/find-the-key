@@ -20,15 +20,22 @@ public class GamePanel extends JPanel implements Runnable {
     public static final int SCREEN_WIDTH = TILE_SIZE * MAX_SCREEN_COLUMN;
     public static final int SCREEN_HEIGHT = TILE_SIZE * MAX_SCREEN_ROW;
 
+    // WORLD SETTINGS
+    public static final int MAX_WORLD_COLUMN = 19;
+    public static final int MAX_WORLD_ROW = 24;
+    public static final int WORLD_WIDTH = TILE_SIZE * MAX_WORLD_COLUMN;
+    public static final int WORLD_HEIGHT = TILE_SIZE * MAX_WORLD_ROW;
+
+
     // FPS
     int FPS = 60;
 
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
-    Player player = new Player(this, keyH);
     TileManager tileM = new TileManager(this);
+    public Player player = new Player(this, keyH);
 
-    public GamePanel() throws IOException {
+    public GamePanel() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
@@ -40,7 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        double drawInterval = 1000000000/FPS;
+        double drawInterval = 1000000000.0/FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;

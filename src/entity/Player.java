@@ -9,11 +9,14 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-import static main.GamePanel.TILE_SIZE;
+import static main.GamePanel.*;
 
 public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
+
+    public final int screenX;
+    public final int screenY;
 
     private BufferedImage right3, left3;
     private int spriteCounterSide = 0;
@@ -24,13 +27,16 @@ public class Player extends Entity {
         this.gp = gp;
         this.keyH = keyH;
 
+        screenX = SCREEN_WIDTH / 2 - TILE_SIZE / 2;
+        screenY = SCREEN_HEIGHT / 2 - TILE_SIZE / 2;
+
         setDefaultValues();
         getPlayerImage();
     }
 
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        worldX = TILE_SIZE * 6;
+        worldY = TILE_SIZE * 8;
         speed = 4;
         direction = "stand";
     }
@@ -56,16 +62,16 @@ public class Player extends Entity {
     public void update() {
         if(keyH.upPressed) {
             direction = "up";
-            y -= speed;
+            worldY -= speed;
         } else if(keyH.downPressed) {
             direction = "down";
-            y += speed;
+            worldY += speed;
         } else if(keyH.leftPressed) {
             direction = "left";
-            x -= speed;
+            worldX -= speed;
         } else if(keyH.rightPressed) {
             direction = "right";
-            x += speed;
+            worldX += speed;
         } else {
             direction = "stand";
         }
@@ -81,6 +87,7 @@ public class Player extends Entity {
             spriteCounter = 0;
         }
 
+        // SIDE PLAYER's MOVEMENT
         if(spriteCounterSide > 10) {
             if(spriteNumSide == 1) {
                 spriteNumSide = 2;
@@ -120,6 +127,6 @@ public class Player extends Entity {
                 break;
         }
 
-        g2.drawImage(image, x, y, TILE_SIZE, TILE_SIZE, null);
+        g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
     }
 }
