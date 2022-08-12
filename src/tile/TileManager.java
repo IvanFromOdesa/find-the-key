@@ -18,28 +18,49 @@ public class TileManager {
     Tile[] tile;
     int[][] mapTileNum;
 
-    public TileManager(GamePanel gp) {
+    public TileManager(GamePanel gp) throws IOException {
         this.gp = gp;
-        tile = new Tile[10]; // 10 types of tiles
+        tile = new Tile[11]; // 11 types of tiles
 
         mapTileNum = new int[MAX_SCREEN_COLUMN][MAX_SCREEN_ROW];
         getTileImage();
         loadMap("/maps/map.txt");
     }
 
-    public void getTileImage() {
-        try {
-            tile[0] = new Tile();
-            tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/grass.png"))));
+    public void getTileImage() throws IOException {
+        tile[0] = new Tile();
+        tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/grass.png")));
 
-            tile[1] = new Tile();
-            tile[1].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/ground.png"))));
+        tile[1] = new Tile();
+        tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/ground.png")));
 
-            tile[2] = new Tile();
-            tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water.png"))));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        tile[2] = new Tile();
+        tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water/water_fill.png")));
+
+        tile[3] = new Tile();
+        tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water/water_angle_top_left.png")));
+
+        tile[4] = new Tile();
+        tile[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water/water_angle_top_right.png")));
+
+        tile[5] = new Tile();
+        tile[5].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water/water_angle_bottom_left.png")));
+
+        tile[6] = new Tile();
+        tile[6].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water/water_angle_bottom_right.png")));
+
+        tile[7] = new Tile();
+        tile[7].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water/water_side_top.png")));
+
+        tile[8] = new Tile();
+        tile[8].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water/water_side_left.png")));
+
+        tile[9] = new Tile();
+        tile[9].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water/water_side_right.png")));
+
+        tile[10] = new Tile();
+        tile[10].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water/water_side_bottom.png")));
+
     }
 
     // LOAD THE TILES FROM txt FILE
@@ -87,7 +108,7 @@ public class TileManager {
 
            int tileNum = mapTileNum[col][row];
 
-           g2.drawImage(tile[tileNum].getImage(), x, y, TILE_SIZE, TILE_SIZE, null);
+           g2.drawImage(tile[tileNum].image, x, y, TILE_SIZE, TILE_SIZE, null);
            col++;
            x += TILE_SIZE;
 
