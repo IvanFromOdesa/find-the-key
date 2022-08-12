@@ -1,7 +1,6 @@
 package main;
 
 import entity.Player;
-import lombok.Getter;
 import tile.TileManager;
 
 import javax.swing.*;
