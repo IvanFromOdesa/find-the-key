@@ -4,27 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="781ecca2-c6ff-4ff8-93de-c96351517bc7" name="Changes" comment="Add Natalie's sprites">
-      <change afterPath="$PROJECT_DIR$/res/tiles/water/water_angle_bottom_left.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/water/water_angle_bottom_right.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/water/water_angle_top_left.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/water/water_angle_top_right.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/water/water_fill.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/water/water_side_bottom.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/water/water_side_left.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/water/water_side_right.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/water/water_side_top.png" afterDir="false" />
+    <list default="true" id="781ecca2-c6ff-4ff8-93de-c96351517bc7" name="Changes" comment="Add Water`s sprites">
+      <change afterPath="$PROJECT_DIR$/res/tiles/park/water/water_angle_top_left (2).png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/maps/map.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/maps/map.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/tiles/water.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/prcatice-game.iml" beforeDir="false" afterPath="$PROJECT_DIR$/prcatice-game.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/water_angle_bottom_left.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/tiles/park/water/water_angle_bottom_left.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/water_angle_bottom_right.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/tiles/park/water/water_angle_bottom_right.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/water_angle_top_left.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/tiles/park/water/water_angle_top_left.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/water_angle_top_right.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/tiles/park/water/water_angle_top_right.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/water_side_bottom.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/tiles/park/water/water_side_bottom.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/water_side_left.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/tiles/park/water/water_side_left.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/water_side_right.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/tiles/park/water/water_side_right.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/water_side_top.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/tiles/park/water/water_side_top.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tile/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/TileManager.java" afterDir="false" />
     </list>
     <list id="cb933f19-6be4-4785-951a-8526ed4d66ca" name="Changes by Ivan" comment="Changes by Ivan" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -39,6 +40,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2Cta4Lg6JfEa07g2cbHctSSgPPs" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -47,10 +51,15 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -105,7 +114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659964730626</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add Water`s sprites">
+      <created>1660331053706</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1660331053706</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,6 +141,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update 1" />
     <MESSAGE value="Add Natalie's sprites" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Natalie's sprites" />
+    <MESSAGE value="Add Water`s sprites" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Water`s sprites" />
   </component>
 </project>
