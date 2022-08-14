@@ -27,13 +27,15 @@ public class GamePanel extends JPanel implements Runnable {
     public static final int WORLD_WIDTH = TILE_SIZE * MAX_WORLD_COLUMN;
     public static final int WORLD_HEIGHT = TILE_SIZE * MAX_WORLD_ROW;
 
-
     // FPS
     int FPS = 60;
 
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
     TileManager tileM = new TileManager(this);
+
+    // COLLISION
+    public CollisionChecker cChecker = new CollisionChecker(this);
 
     public ObjectSetter objSetter = new ObjectSetter(this);
     public Player player = new Player(this, keyH);
