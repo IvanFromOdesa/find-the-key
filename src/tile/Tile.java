@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 @Getter
 @Setter
+
 public class Tile  {
 
     public BufferedImage image;
