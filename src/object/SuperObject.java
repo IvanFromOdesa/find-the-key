@@ -1,5 +1,6 @@
 package object;
 
+import lombok.Getter;
 import main.GamePanel;
 
 import java.awt.*;
@@ -10,7 +11,11 @@ import static main.GamePanel.TILE_SIZE;
 public class SuperObject {
 
     protected BufferedImage image;
+
+    @Getter
     protected String name;
+
+    @Getter
     protected boolean collision = false;
 
     // OBJECT's REAL WIDTH AND HEIGHT
@@ -19,6 +24,10 @@ public class SuperObject {
     // OBJECT's WIDTH AND HEIGHT
     protected int scaleX, scaleY;
     public int worldX, worldY;
+
+    public Rectangle solidArea;
+    public int solidAreaDefaultX = 0;
+    public int solidAreaDefaultY = 0;
 
     public void draw(Graphics2D g2, GamePanel gp) {
 

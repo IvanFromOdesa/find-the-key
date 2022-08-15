@@ -27,4 +27,7 @@ public class Entity {
     @Getter
     @Setter
     protected boolean collisionOn = false;
+
+    @Getter
+    protected int solidAreaDefaultX, solidAreaDefaultY;
 }

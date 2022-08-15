@@ -22,7 +22,6 @@ public class Player extends Entity {
     private int spriteCounterSide = 0;
     private int spriteNumSide = 1;
 
-
     public Player (GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
@@ -30,7 +29,9 @@ public class Player extends Entity {
         screenX = SCREEN_WIDTH / 2 - TILE_SIZE / 2;
         screenY = SCREEN_HEIGHT / 2 - TILE_SIZE / 2;
 
-        solidArea = new Rectangle(8, 16, 32, 32);
+        solidArea = new Rectangle(15, 36, 18, 12);
+        solidAreaDefaultX = 15;
+        solidAreaDefaultY = 36;
 
         setDefaultValues();
         getPlayerImage();
@@ -78,6 +79,10 @@ public class Player extends Entity {
         collisionOn = false;
         gp.cChecker.checkTile(this);
 
+        // CHECK OBJECT COLLISION
+        int objIndex = gp.cChecker.checkObject(this, true);
+        //pickUpPlayObject(objIndex);
+
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if(!collisionOn) {
             switch (direction) {
@@ -110,6 +115,19 @@ public class Player extends Entity {
                 spriteNumSide = 1;
             }
             spriteCounterSide = 0;
+        }
+    }
+
+    // FOR INTERACTIVE OBJECTS
+    public void pickUpPlayObject(int i) {
+
+        if(i != -1) {
+            String name = gp.objects[i].getName();
+            switch (name) {
+                case "Tree_1":
+                case "Tree_2":
+                    break;
+            }
         }
     }
 
