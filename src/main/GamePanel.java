@@ -30,18 +30,23 @@ public class GamePanel extends JPanel implements Runnable {
     // FPS
     int FPS = 60;
 
+    // SYSTEM
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
+    SoundHandler music = new SoundHandler();
+    SoundHandler se = new SoundHandler();
     TileManager tileM = new TileManager(this);
 
     // COLLISION
     public CollisionChecker cChecker = new CollisionChecker(this);
-
     public ObjectSetter objSetter = new ObjectSetter(this);
-    public Player player = new Player(this, keyH);
 
-    // 10 slots for objects. 10 for simultaneous spawning.
+    // ENTITY
+    public Player player = new Player(this, keyH);
     public SuperObject[] objects = new SuperObject[100];
+
+    public UI ui = new UI(this);
+
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -83,6 +88,8 @@ public class GamePanel extends JPanel implements Runnable {
     // SETTING UP OBJECTS, NPC etc.
     public void setUpGame() {
         objSetter.setObject();
+
+        //playMusic(0);
     }
 
     public void startGameThread() {
@@ -111,6 +118,25 @@ public class GamePanel extends JPanel implements Runnable {
 
         // PLAYER
         player.draw(g2);
+
+        // UI
+        ui.draw(g2);
+
         g2.dispose();
+    }
+
+    public void playMusic(int i) {
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+
+    public void stopMusic() {
+        music.stop();
+    }
+
+    public void playSE(int i) {
+        se.setFile(i);
+        se.play();
     }
 }

@@ -81,7 +81,7 @@ public class Player extends Entity {
 
         // CHECK OBJECT COLLISION
         int objIndex = gp.cChecker.checkObject(this, true);
-        //pickUpPlayObject(objIndex);
+        pickUpPlayObject(objIndex);
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if(!collisionOn) {
@@ -125,7 +125,10 @@ public class Player extends Entity {
             String name = gp.objects[i].getName();
             switch (name) {
                 case "Tree_1":
+                    gp.ui.showMessage("You hit a tree #1!");
+                    break;
                 case "Tree_2":
+                    gp.ui.showMessage("You hit a tree #2!");
                     break;
             }
         }
