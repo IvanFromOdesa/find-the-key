@@ -7,24 +7,22 @@ import java.util.Objects;
 
 import static main.GamePanel.TILE_SIZE;
 
-public class OBJ_Tree_1 extends SuperObject {
+public class OBJ_Bush_1 extends SuperObject{
 
-    public OBJ_Tree_1() {
-        name = "Tree_1";
+    public OBJ_Bush_1() {
+        name = "Bush_1";
         collision = true;
 
         scaleX = 1;
-        scaleY = 3;
+        scaleY = 1;
 
         width = TILE_SIZE * scaleX;
         height = TILE_SIZE * scaleY;
 
-        solidAreaDefaultY = 100;
-
-        solidArea = new Rectangle(0, 100, width, 35);
+        solidArea = new Rectangle(0, 0, width, height);
 
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/park/objects/tree_1.png")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/park/objects/bush_1.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -25,7 +25,7 @@ public class UI {
     public void draw(Graphics2D g2) {
         g2.setFont(font);
         g2.setColor(Color.WHITE);
-        g2.drawString("Flowers", 25, 50);
+        g2.drawString("Vita", 25, 50);
 
         // MESSAGE
         if(messageOn) {

@@ -25,7 +25,7 @@ public class OBJ_Tree_2 extends SuperObject{
         solidArea = new Rectangle(20, 20, width - 30, height - 35);
 
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/tree_2.png")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/park/objects/tree_2.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }

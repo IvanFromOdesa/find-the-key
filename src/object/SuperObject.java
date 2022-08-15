@@ -39,6 +39,11 @@ public class SuperObject {
                 worldY + TILE_SIZE * scaleY > gp.player.worldY - gp.player.screenY &&
                 worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
             g2.drawImage(image, screenX, screenY, width, height, null);
+
+            // DISPLAY COLLISION
+            g2.setColor(Color.RED);
+            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y,
+                    solidArea.width, solidArea.height);
         }
     }
 }

@@ -1,5 +1,6 @@
 package main;
 
+import object.OBJ_Bush_1;
 import object.OBJ_Tree_1;
 import object.OBJ_Tree_2;
 
@@ -31,7 +32,7 @@ public class ObjectSetter {
         gp.objects[2] = new OBJ_Tree_1();
 
         // COORDINATES
-        gp.objects[2].worldX = 25 * TILE_SIZE;
+        gp.objects[2].worldX = 23 * TILE_SIZE;
         gp.objects[2].worldY = 7 * TILE_SIZE;
 
         // TREE 2
@@ -46,5 +47,18 @@ public class ObjectSetter {
         // COORDINATES
         gp.objects[4].worldX = 29 * TILE_SIZE;
         gp.objects[4].worldY = 17 * TILE_SIZE;
+
+        // BUSHES
+        gp.objects[5] = new OBJ_Bush_1();
+
+        // COORDINATES
+        gp.objects[5].worldX = 25 * TILE_SIZE;
+        gp.objects[5].worldY = 15 * TILE_SIZE;
+
+        gp.objects[6] = new OBJ_Bush_1();
+
+        // COORDINATES
+        gp.objects[6].worldX = 15 * TILE_SIZE;
+        gp.objects[6].worldY = 21 * TILE_SIZE;
     }
 }

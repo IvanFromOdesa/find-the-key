@@ -130,6 +130,9 @@ public class Player extends Entity {
                 case "Tree_2":
                     gp.ui.showMessage("You hit a tree #2!");
                     break;
+                case "Bush_1":
+                    gp.ui.showMessage("You hit a bush #1!");
+                    break;
             }
         }
     }
@@ -162,5 +165,10 @@ public class Player extends Entity {
         }
 
         g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+
+        // DISPLAY COLLISION
+        g2.setColor(Color.RED);
+        g2.drawRect(screenX + getSolidArea().x, screenY + getSolidArea().y,
+                getSolidArea().width, getSolidArea().height);
     }
 }
