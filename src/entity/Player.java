@@ -2,6 +2,7 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -45,21 +46,33 @@ public class Player extends Entity {
     }
 
     public void getPlayerImage() {
-        try {
-            stand = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita_down1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita_down2.png")));
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita_up1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita_up2.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita_right1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita_right2.png")));
-            right3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita_right3.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita_left1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita_left2.png")));
-            left3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/player/Vita_left3.png")));
+        stand = setup("Vita");
+        down1 = setup("Vita_down1");
+        down2 = setup("Vita_down2");
+        up1 = setup("Vita_up1");
+        up2 = setup("Vita_up2");
+        right1 = setup("Vita_right1");
+        right2 = setup("Vita_right2");
+        right3 = setup("Vita_right3");
+        left1 = setup("Vita_left1");
+        left2 = setup("Vita_left2");
+        left3 = setup("Vita_left3");
+    }
+
+    public BufferedImage setup(String imagePath) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try{
+            image = ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player/" + imagePath +".png")));
+            image = uTool.scaleImage(image, TILE_SIZE, TILE_SIZE);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return image;
     }
 
     public void update() {
@@ -164,7 +177,7 @@ public class Player extends Entity {
                 break;
         }
 
-        g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+        g2.drawImage(image, screenX, screenY, null);
 
         // DISPLAY COLLISION
         g2.setColor(Color.RED);

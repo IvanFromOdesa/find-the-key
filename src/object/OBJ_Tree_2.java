@@ -26,6 +26,7 @@ public class OBJ_Tree_2 extends SuperObject{
 
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/park/objects/tree_2.png")));
+            uTool.scaleImage(image, width, height);
         } catch (IOException e) {
             e.printStackTrace();
         }

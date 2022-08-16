@@ -23,6 +23,7 @@ public class OBJ_Bush_1 extends SuperObject{
 
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/park/objects/bush_1.png")));
+            uTool.scaleImage(image, width, height);
         } catch (IOException e) {
             e.printStackTrace();
         }
