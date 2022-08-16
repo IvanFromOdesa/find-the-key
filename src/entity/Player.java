@@ -146,6 +146,9 @@ public class Player extends Entity {
                 case "Bush_1":
                     gp.ui.showMessage("You hit a bush #1!");
                     break;
+                case "Bush_2":
+                    gp.ui.showMessage("You hit a bush #2!");
+                    break;
             }
         }
     }
@@ -177,11 +180,19 @@ public class Player extends Entity {
                 break;
         }
 
-        g2.drawImage(image, screenX, screenY, null);
+        int x = screenX;
+        int y = screenY;
+
+        if(screenX > worldX) x = worldX;
+        if(screenY > worldY) y = worldY;
+        if(SCREEN_WIDTH - screenX > WORLD_WIDTH - worldX) x = SCREEN_WIDTH - (WORLD_WIDTH - worldX);
+        if(SCREEN_HEIGHT - screenY > WORLD_HEIGHT - worldY) y = SCREEN_HEIGHT - (WORLD_HEIGHT - worldY);
+
+        g2.drawImage(image, x, y, null);
 
         // DISPLAY COLLISION
-        g2.setColor(Color.RED);
+        /*g2.setColor(Color.RED);
         g2.drawRect(screenX + getSolidArea().x, screenY + getSolidArea().y,
-                getSolidArea().width, getSolidArea().height);
+                getSolidArea().width, getSolidArea().height);*/
     }
 }

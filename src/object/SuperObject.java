@@ -1,15 +1,17 @@
 package object;
 
 import lombok.Getter;
+import lombok.Setter;
 import main.GamePanel;
+import main.ScreenPositionKeeper;
 import main.UtilityTool;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-import static main.GamePanel.TILE_SIZE;
+import static main.GamePanel.*;
 
-public class SuperObject {
+public class SuperObject extends ScreenPositionKeeper {
 
     protected BufferedImage image;
 
@@ -34,8 +36,11 @@ public class SuperObject {
 
     public void draw(Graphics2D g2, GamePanel gp) {
 
-        int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+        screenX = worldX - gp.player.worldX + gp.player.screenX;
+        screenY = worldY - gp.player.worldY + gp.player.screenY;
+
+        // STOPPING THE CAMERA
+        uTool.adjustCamera(gp, this, worldX, worldY);
 
         if (worldX + TILE_SIZE * scaleX > gp.player.worldX - gp.player.screenX &&
                 worldX - TILE_SIZE < gp.player.worldX  + gp.player.screenX &&
@@ -44,9 +49,15 @@ public class SuperObject {
             g2.drawImage(image, screenX, screenY, width, height, null);
 
             // DISPLAY COLLISION
-            g2.setColor(Color.RED);
+            /*g2.setColor(Color.RED);
             g2.drawRect(screenX + solidArea.x, screenY + solidArea.y,
-                    solidArea.width, solidArea.height);
+                    solidArea.width, solidArea.height);*/
+        }
+        else if(gp.player.worldX < gp.player.screenX ||
+                gp.player.worldY < gp.player.screenY ||
+                SCREEN_WIDTH - gp.player.screenX > WORLD_WIDTH - gp.player.worldX ||
+                SCREEN_HEIGHT - gp.player.screenY > WORLD_HEIGHT - gp.player.worldY) {
+            g2.drawImage(image, screenX, screenY, width, height, null);
         }
     }
 }

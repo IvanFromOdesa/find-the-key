@@ -2,11 +2,11 @@ package tile;
 
 import lombok.Getter;
 import main.GamePanel;
+import main.ScreenPositionKeeper;
 import main.UtilityTool;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +15,7 @@ import java.util.Objects;
 
 import static main.GamePanel.*;
 
-public class TileManager {
+public class TileManager extends ScreenPositionKeeper {
 
     GamePanel gp;
 
@@ -24,6 +24,8 @@ public class TileManager {
 
     @Getter
     int[][] mapTileNum;
+
+    UtilityTool uTool = new UtilityTool();
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -156,13 +158,21 @@ public class TileManager {
            int worldY = worldRow * TILE_SIZE;
 
            // WHERE ON THE SCREEN THE TILE IS DRAWN
-           int screenX = worldX - gp.player.worldX + gp.player.screenX;
-           int screenY = worldY - gp.player.worldY + gp.player.screenY;
+           screenX = worldX - gp.player.worldX + gp.player.screenX;
+           screenY = worldY - gp.player.worldY + gp.player.screenY;
+
+           // STOP MOVING THE CAMERA AT THE EDGE
+           uTool.adjustCamera(gp, this, worldX, worldY);
 
            if (worldX + TILE_SIZE > gp.player.worldX - gp.player.screenX &&
                 worldX - TILE_SIZE < gp.player.worldX  + gp.player.screenX &&
                 worldY + TILE_SIZE > gp.player.worldY - gp.player.screenY &&
                 worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
+               g2.drawImage(tile[tileNum].getImage(), screenX, screenY, null);
+           }
+           else if (gp.player.screenX > gp.player.worldX || gp.player.screenY > gp.player.worldY ||
+                   SCREEN_WIDTH - gp.player.screenX > WORLD_WIDTH - gp.player.worldX ||
+                   SCREEN_HEIGHT - gp.player.screenY > WORLD_HEIGHT - gp.player.worldY) {
                g2.drawImage(tile[tileNum].getImage(), screenX, screenY, null);
            }
            worldCol++;

@@ -2,9 +2,6 @@ package main;
 
 import entity.Entity;
 
-import java.awt.*;
-import java.util.stream.IntStream;
-
 import static main.GamePanel.TILE_SIZE;
 
 public class CollisionChecker {
