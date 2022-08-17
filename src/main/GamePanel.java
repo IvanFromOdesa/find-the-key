@@ -1,5 +1,6 @@
 package main;
 
+import entity.Entity;
 import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
@@ -35,18 +36,24 @@ public class GamePanel extends JPanel implements Runnable {
 
     // SYSTEM
     Thread gameThread;
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     SoundHandler music = new SoundHandler();
     SoundHandler se = new SoundHandler();
     TileManager tileM = new TileManager(this);
 
     // COLLISION
     public CollisionChecker cChecker = new CollisionChecker(this);
-    public ObjectSetter objSetter = new ObjectSetter(this);
+    public EntityPlacer entPlacer = new EntityPlacer(this);
 
     // ENTITY
     public Player player = new Player(this, keyH);
     public SuperObject[] objects = new SuperObject[100];
+    public Entity[] npc = new Entity[10];
+
+    // GAME STATE
+    public int gameState;
+    public final  int playState = 1;
+    public final int pauseState = 2;
 
     public UI ui = new UI(this);
 
@@ -90,9 +97,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     // SETTING UP OBJECTS, NPC etc.
     public void setUpGame() {
-        objSetter.setObject();
-
+        entPlacer.setObject();
+        entPlacer.setNpc();
         //playMusic(0);
+        gameState = playState;
     }
 
     public void startGameThread() {
@@ -101,7 +109,18 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        player.update();
+        if(gameState == playState) {
+            // PLAYER
+            player.update();
+
+            // NPCs
+            Arrays.stream(npc).forEach(c -> {
+                if(c != null) c.update();
+            });
+        }
+        if(gameState == pauseState) {
+            // nothing
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -119,6 +138,13 @@ public class GamePanel extends JPanel implements Runnable {
         Arrays.stream(objects).forEach(obj -> {
             if(obj != null) {
                 obj.draw(g2, this);
+            }
+        });
+
+        // NPCs
+        Arrays.stream(npc).forEach(c -> {
+            if(c != null) {
+                c.draw(g2);
             }
         });
 

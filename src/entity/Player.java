@@ -2,18 +2,19 @@ package entity;
 
 import main.GamePanel;
 import main.KeyHandler;
-import main.UtilityTool;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.util.Objects;
 
-import static main.GamePanel.*;
+import static main.GamePanel.SCREEN_HEIGHT;
+import static main.GamePanel.SCREEN_WIDTH;
+import static main.GamePanel.TILE_SIZE;
+import static main.GamePanel.WORLD_HEIGHT;
+import static main.GamePanel.WORLD_WIDTH;
 
 public class Player extends Entity {
-    GamePanel gp;
+
     KeyHandler keyH;
 
     public final int screenX;
@@ -24,8 +25,12 @@ public class Player extends Entity {
     private int spriteNumSide = 1;
 
     public Player (GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
+
+        super(gp);
+
         this.keyH = keyH;
+
+        imgSpec = "player/";
 
         screenX = SCREEN_WIDTH / 2 - TILE_SIZE / 2;
         screenY = SCREEN_HEIGHT / 2 - TILE_SIZE / 2;
@@ -59,22 +64,7 @@ public class Player extends Entity {
         left3 = setup("Vita_left3");
     }
 
-    public BufferedImage setup(String imagePath) {
-
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try{
-            image = ImageIO.read(Objects.requireNonNull(
-                    getClass().getResourceAsStream("/player/" + imagePath +".png")));
-            image = uTool.scaleImage(image, TILE_SIZE, TILE_SIZE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return image;
-    }
-
+    @Override
     public void update() {
         if(keyH.upPressed) {
             direction = "up";
@@ -96,27 +86,14 @@ public class Player extends Entity {
         int objIndex = gp.cChecker.checkObject(this, true);
         pickUpPlayObject(objIndex);
 
-        // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        if(!collisionOn) {
-            switch (direction) {
-                case "stand": break;
-                case "up": worldY -= speed; break;
-                case "down": worldY += speed; break;
-                case "right": worldX += speed; break;
-                case "left": worldX -= speed; break;
-            }
-        }
+        // CHECK NPC COLLISION
+        int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+        interactNPC(npcIndex);
 
-        spriteCounter++;
+        // IF COLLISION IS FALSE, PLAYER CAN MOVE
+        defineCollision();
+
         spriteCounterSide ++;
-        if(spriteCounter > 10) {
-            if(spriteNum == 1) {
-                spriteNum = 2;
-            } else if (spriteNum == 2) {
-                spriteNum = 1;
-            }
-            spriteCounter = 0;
-        }
 
         // SIDE PLAYER's MOVEMENT
         if(spriteCounterSide > 10) {
@@ -134,25 +111,14 @@ public class Player extends Entity {
     // FOR INTERACTIVE OBJECTS
     public void pickUpPlayObject(int i) {
 
-        if(i != -1) {
-            String name = gp.objects[i].getName();
-            switch (name) {
-                case "Tree_1":
-                    gp.ui.showMessage("You hit a tree #1!");
-                    break;
-                case "Tree_2":
-                    gp.ui.showMessage("You hit a tree #2!");
-                    break;
-                case "Bush_1":
-                    gp.ui.showMessage("You hit a bush #1!");
-                    break;
-                case "Bush_2":
-                    gp.ui.showMessage("You hit a bush #2!");
-                    break;
-            }
-        }
     }
 
+    // INTERACT WITH THE NPC's
+    public void interactNPC(int i) {
+
+    }
+
+    @Override
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 

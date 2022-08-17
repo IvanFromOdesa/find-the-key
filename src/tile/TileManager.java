@@ -96,8 +96,6 @@ public class TileManager extends ScreenPositionKeeper {
 
     public void setup(int index, String location, String imagePath, boolean collision) {
 
-        UtilityTool uTool = new UtilityTool();
-
         try {
             tile[index] = new Tile();
             tile[index].setImage(ImageIO.read(Objects.requireNonNull(

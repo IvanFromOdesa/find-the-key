@@ -1,14 +1,18 @@
 package main;
 
+import entity.NPC_Monk;
 import object.*;
 
 import static main.GamePanel.TILE_SIZE;
 
-public class ObjectSetter {
+/**
+ *  Places objects and entities on the map
+ */
+public class EntityPlacer {
 
     GamePanel gp;
 
-    public ObjectSetter(GamePanel gp) {
+    public EntityPlacer(GamePanel gp) {
         this.gp = gp;
     }
 
@@ -74,5 +78,11 @@ public class ObjectSetter {
 //
 //        gp.objects[10].worldX = 15 * TILE_SIZE;
 //        gp.objects[10].worldY = 10 * TILE_SIZE;
+    }
+
+    public void setNpc() {
+        gp.npc[0] = new NPC_Monk(gp);
+        gp.npc[0].worldX = TILE_SIZE * 15;
+        gp.npc[0].worldY = TILE_SIZE * 10;
     }
 }
