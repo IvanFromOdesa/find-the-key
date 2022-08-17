@@ -29,7 +29,7 @@ public class TileManager extends ScreenPositionKeeper {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[26]; // 25 types of tiles
+        tile = new Tile[31]; // 31s types of tiles
 
         mapTileNum = new int[MAX_WORLD_COLUMN][MAX_WORLD_ROW];
         getTileImage();
@@ -102,6 +102,26 @@ public class TileManager extends ScreenPositionKeeper {
                     getClass().getResourceAsStream("/" + location + "/tiles/" + imagePath + ".png"))));
             tile[index].setImage(uTool.scaleImage(tile[index].image, TILE_SIZE, TILE_SIZE));
             tile[index].setCollision(collision);
+
+            // NENUPHAR
+            tile[26] = new Tile();
+            tile[26].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/park/water/nenuphar.png"))));
+
+            // NENUPHAR V2 WITHOUT LITTLE NENUPHAR
+            tile[27] = new Tile();
+            tile[27].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/park/water/nenuphar_v2.png"))));
+
+            // LILIA V1
+            tile[28] = new Tile();
+            tile[28].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/park/water/lilia_v1.png"))));
+
+            // LILIA V2
+            tile[29] = new Tile();
+            tile[29].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/park/water/lilia_v2.png"))));
+
+            // LILIA V3
+            tile[30] = new Tile();
+            tile[30].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/park/water/lilia_v3.png"))));
 
         } catch (IOException e) {
             e.printStackTrace();
