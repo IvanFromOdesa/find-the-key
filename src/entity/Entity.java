@@ -7,10 +7,12 @@ import main.ScreenPositionKeeper;
 import main.UtilityTool;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Random;
 
 import static main.GamePanel.*;
 
@@ -37,9 +39,10 @@ public abstract class Entity extends ScreenPositionKeeper {
 
     @Getter
     protected int solidAreaDefaultX, solidAreaDefaultY;
-    protected String imgSpec;
+    protected String imgPath;
     protected int actionLockCounter;
-    BufferedImage image;
+    protected int topBorder, bottomBorder, leftBorder, rightBorder;
+    private BufferedImage image;
 
     UtilityTool uTool = new UtilityTool();
 
@@ -47,14 +50,14 @@ public abstract class Entity extends ScreenPositionKeeper {
         this.gp = gp;
     }
 
-    protected BufferedImage setup(String imagePath) {
+    protected BufferedImage setup(String imageName) {
 
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
 
         try{
             image = ImageIO.read(Objects.requireNonNull(
-                    getClass().getResourceAsStream("/" + imgSpec + imagePath +".png")));
+                    getClass().getResourceAsStream("/" + imgPath + imageName +".png")));
             image = uTool.scaleImage(image, TILE_SIZE, TILE_SIZE);
         } catch (IOException e) {
             e.printStackTrace();
@@ -98,6 +101,41 @@ public abstract class Entity extends ScreenPositionKeeper {
                 spriteNum = 1;
             }
             spriteCounter = 0;
+        }
+    }
+
+    // CHECKS IF THE NPC OR MONSTER CAN MOVE TO CERTAIN LOCATIONS
+
+    protected void checkMovementAvailability() {
+        if(this.worldY < topBorder) direction = "down";
+        else if(this.worldY > bottomBorder) direction = "up";
+        else if(this.worldX < leftBorder) direction = "right";
+        else if(this.worldX > rightBorder) direction = "left";
+    }
+
+    protected void basicAI(int framesNum) {
+        if (actionLockCounter == framesNum) {
+            Random random = new Random();
+            int choice = random.nextInt(140) + 1;
+
+            if (choice <= 25) {
+                direction = "up";
+                checkMovementAvailability();
+            }
+            if (choice > 25 && choice <= 50) {
+                direction = "down";
+                checkMovementAvailability();
+            }
+            if (choice > 50 && choice <= 75) {
+                direction = "left";
+                checkMovementAvailability();
+            }
+            if (choice > 75 && choice <= 100) {
+                direction = "right";
+                checkMovementAvailability();
+            }
+            if (choice > 100 && choice <= 140) direction = "stand";
+            actionLockCounter = 0;
         }
     }
 

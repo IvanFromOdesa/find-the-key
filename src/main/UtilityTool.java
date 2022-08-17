@@ -1,13 +1,12 @@
 package main;
 
-import lombok.NoArgsConstructor;
-import object.SuperObject;
-import tile.TileManager;
+import static main.GamePanel.SCREEN_HEIGHT;
+import static main.GamePanel.SCREEN_WIDTH;
+import static main.GamePanel.WORLD_HEIGHT;
+import static main.GamePanel.WORLD_WIDTH;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
-import static main.GamePanel.*;
 
 public class UtilityTool {
 

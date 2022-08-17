@@ -30,7 +30,7 @@ public class Player extends Entity {
 
         this.keyH = keyH;
 
-        imgSpec = "player/";
+        imgPath = "player/";
 
         screenX = SCREEN_WIDTH / 2 - TILE_SIZE / 2;
         screenY = SCREEN_HEIGHT / 2 - TILE_SIZE / 2;
@@ -43,14 +43,14 @@ public class Player extends Entity {
         getPlayerImage();
     }
 
-    public void setDefaultValues() {
+    private void setDefaultValues() {
         worldX = TILE_SIZE * 16;
         worldY = TILE_SIZE * 10;
         speed = 4;
         direction = "stand";
     }
 
-    public void getPlayerImage() {
+    private void getPlayerImage() {
         stand = setup("Vita");
         down1 = setup("Vita_down1");
         down2 = setup("Vita_down2");

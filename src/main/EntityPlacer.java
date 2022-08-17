@@ -1,6 +1,7 @@
 package main;
 
 import entity.NPC_Monk;
+import entity.NPC_Natalie;
 import object.*;
 
 import static main.GamePanel.TILE_SIZE;
@@ -73,16 +74,17 @@ public class EntityPlacer {
 
         gp.objects[9].worldX = 6 * TILE_SIZE;
         gp.objects[9].worldY = 20 * TILE_SIZE;
-
-//        gp.objects[10] = new OBJ_Bush_3();
-//
-//        gp.objects[10].worldX = 15 * TILE_SIZE;
-//        gp.objects[10].worldY = 10 * TILE_SIZE;
     }
 
     public void setNpc() {
+        // MONK
         gp.npc[0] = new NPC_Monk(gp);
-        gp.npc[0].worldX = TILE_SIZE * 15;
-        gp.npc[0].worldY = TILE_SIZE * 10;
+        gp.npc[0].worldX = TILE_SIZE * 30;
+        gp.npc[0].worldY = TILE_SIZE * 15;
+
+        // NATALIE
+        gp.npc[1] = new NPC_Natalie(gp);
+        gp.npc[1].worldX = TILE_SIZE * 11;
+        gp.npc[1].worldY = TILE_SIZE * 11;
     }
 }
