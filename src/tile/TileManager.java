@@ -2,7 +2,7 @@ package tile;
 
 import lombok.Getter;
 import main.GamePanel;
-import main.ScreenPositionKeeper;
+import main.PositionKeeper;
 import main.UtilityTool;
 
 import javax.imageio.ImageIO;
@@ -15,7 +15,7 @@ import java.util.Objects;
 
 import static main.GamePanel.*;
 
-public class TileManager extends ScreenPositionKeeper {
+public class TileManager extends PositionKeeper {
 
     GamePanel gp;
 
@@ -152,8 +152,8 @@ public class TileManager extends ScreenPositionKeeper {
            int tileNum = mapTileNum[worldCol][worldRow];
 
            // POSITION ON THE MAP
-           int worldX = worldCol * TILE_SIZE;
-           int worldY = worldRow * TILE_SIZE;
+           worldX = worldCol * TILE_SIZE;
+           worldY = worldRow * TILE_SIZE;
 
            // WHERE ON THE SCREEN THE TILE IS DRAWN
            screenX = worldX - gp.player.worldX + gp.player.screenX;

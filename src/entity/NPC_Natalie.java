@@ -18,9 +18,9 @@ public class NPC_Natalie extends Entity{
         speed = 2;
 
         topBorder = TILE_SIZE * 10;
-        bottomBorder = TILE_SIZE * 20;
+        bottomBorder = TILE_SIZE * 14;
         leftBorder = TILE_SIZE * 10;
-        rightBorder = TILE_SIZE * 20;
+        rightBorder = TILE_SIZE * 14;
 
         solidArea = new Rectangle(15, 36, 18, 12);
         solidAreaDefaultX = 15;

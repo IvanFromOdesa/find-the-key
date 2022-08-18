@@ -3,7 +3,7 @@ package entity;
 import lombok.Getter;
 import lombok.Setter;
 import main.GamePanel;
-import main.ScreenPositionKeeper;
+import main.PositionKeeper;
 import main.UtilityTool;
 
 import javax.imageio.ImageIO;
@@ -16,10 +16,9 @@ import java.util.Random;
 
 import static main.GamePanel.*;
 
-public abstract class Entity extends ScreenPositionKeeper {
+public abstract class Entity extends PositionKeeper {
 
     GamePanel gp;
-    public int worldX, worldY;
 
     @Getter
     protected int speed;

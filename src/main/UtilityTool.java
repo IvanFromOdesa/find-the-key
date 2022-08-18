@@ -19,7 +19,7 @@ public class UtilityTool {
         return scaledImage;
     }
 
-    public <T extends ScreenPositionKeeper> void adjustCamera(GamePanel gp, T t, int worldX, int worldY) {
+    public <T extends PositionKeeper> void adjustCamera(GamePanel gp, T t, int worldX, int worldY) {
         if(gp.player.worldX < gp.player.screenX) t.screenX = worldX;
         if(gp.player.worldY < gp.player.screenY) t.screenY = worldY;
         if(SCREEN_WIDTH - gp.player.screenX > WORLD_WIDTH - gp.player.worldX) t.screenX = SCREEN_WIDTH - (WORLD_WIDTH - worldX);
