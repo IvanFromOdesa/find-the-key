@@ -29,7 +29,7 @@ public class TileManager extends PositionKeeper {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[26]; // 25 types of tiles
+        tile = new Tile[31]; // 31s types of tiles
 
         mapTileNum = new int[MAX_WORLD_COLUMN][MAX_WORLD_ROW];
         getTileImage();
@@ -92,6 +92,18 @@ public class TileManager extends PositionKeeper {
         setup(24, "park", "grounds/ground_part_top_left", false);
         // PART TOP RIGHT
         setup(25, "park", "grounds/ground_part_top_right", false);
+
+        // NENUPHAR
+        setup(26, "park", "water/nenuphar", false);
+        // NENUPHAR V2 WITHOUT LITTLE NENUPHAR
+        setup(27, "park", "water/nenuphar_v2", false);
+        // LILIA V1
+        setup(28, "park", "water/lilia_v1", false);
+        // LILIA V2
+        setup(29, "park", "water/lilia_v2", false);
+        // LILIA V3
+        setup(30, "park", "water/lilia_v3", false);
+
     }
 
     public void setup(int index, String location, String imagePath, boolean collision) {
