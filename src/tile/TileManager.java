@@ -92,6 +92,18 @@ public class TileManager extends PositionKeeper {
         setup(24, "park", "grounds/ground_part_top_left", false);
         // PART TOP RIGHT
         setup(25, "park", "grounds/ground_part_top_right", false);
+
+        // NENUPHAR
+        setup(26, "park", "water/nenuphar", false);
+        // NENUPHAR V2 WITHOUT LITTLE NENUPHAR
+        setup(27, "park", "water/nenuphar_v2", false);
+        // LILIA V1
+        setup(28, "park", "water/lilia_v1", false);
+        // LILIA V2
+        setup(29, "park", "water/lilia_v2", false);
+        // LILIA V3
+        setup(30, "park", "water/lilia_v3", false);
+
     }
 
     public void setup(int index, String location, String imagePath, boolean collision) {
@@ -102,26 +114,6 @@ public class TileManager extends PositionKeeper {
                     getClass().getResourceAsStream("/" + location + "/tiles/" + imagePath + ".png"))));
             tile[index].setImage(uTool.scaleImage(tile[index].image, TILE_SIZE, TILE_SIZE));
             tile[index].setCollision(collision);
-
-            // NENUPHAR
-            tile[26] = new Tile();
-            tile[26].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/park/water/nenuphar.png"))));
-
-            // NENUPHAR V2 WITHOUT LITTLE NENUPHAR
-            tile[27] = new Tile();
-            tile[27].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/park/water/nenuphar_v2.png"))));
-
-            // LILIA V1
-            tile[28] = new Tile();
-            tile[28].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/park/water/lilia_v1.png"))));
-
-            // LILIA V2
-            tile[29] = new Tile();
-            tile[29].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/park/water/lilia_v2.png"))));
-
-            // LILIA V3
-            tile[30] = new Tile();
-            tile[30].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/park/water/lilia_v3.png"))));
 
         } catch (IOException e) {
             e.printStackTrace();

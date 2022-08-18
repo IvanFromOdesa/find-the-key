@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="781ecca2-c6ff-4ff8-93de-c96351517bc7" name="Changes" comment="Change water">
-      <change afterPath="$PROJECT_DIR$/res/tiles/park/water/lilia_v1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/park/water/lilia_v2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/park/water/lilia_v3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/park/water/nenuphar.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/tiles/park/water/nenuphar_v2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/maps/map.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/maps/map.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/lilia_v1.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/park/tiles/water/lilia_v1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/lilia_v2.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/park/tiles/water/lilia_v2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/lilia_v3.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/park/tiles/water/lilia_v3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/nenuphar.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/park/tiles/water/nenuphar.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/tiles/park/water/nenuphar_v2.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/park/tiles/water/nenuphar_v2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tile/TileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tile/TileManager.java" afterDir="false" />
     </list>
     <list id="cb933f19-6be4-4785-951a-8526ed4d66ca" name="Changes by Ivan" comment="Changes by Ivan" />
@@ -60,6 +59,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\vital\IdeaProjects\practice-game\res\park\tiles\water" />
       <recent name="C:\Users\vital\IdeaProjects\practice-game\res\tiles\park\water" />
       <recent name="C:\Users\vital\IdeaProjects\practice-game\res\tiles\water" />
       <recent name="C:\Users\vital\IdeaProjects\practice-game\res\natalie" />
