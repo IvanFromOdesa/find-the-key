@@ -43,7 +43,7 @@ public class Player extends Entity {
         getPlayerImage();
     }
 
-    private void setDefaultValues() {
+    public void setDefaultValues() {
         worldX = TILE_SIZE * 16;
         worldY = TILE_SIZE * 10;
         speed = 4;
@@ -66,17 +66,12 @@ public class Player extends Entity {
 
     @Override
     public void update() {
-        if(keyH.upPressed) {
-            direction = "up";
-        } else if(keyH.downPressed) {
-            direction = "down";
-        } else if(keyH.leftPressed) {
-            direction = "left";
-        } else if(keyH.rightPressed) {
-            direction = "right";
-        } else {
-            direction = "stand";
-        }
+
+        if(keyH.upPressed) direction = "up";
+        else if(keyH.downPressed) direction = "down";
+        else if(keyH.leftPressed) direction = "left";
+        else if(keyH.rightPressed) direction = "right";
+        else direction = "stand";
 
         // CHECK TILE COLLISION
         collisionOn = false;
@@ -91,19 +86,15 @@ public class Player extends Entity {
         interactNPC(npcIndex);
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        defineCollision();
+        moveEntity();
 
         spriteCounterSide ++;
 
         // SIDE PLAYER's MOVEMENT
         if(spriteCounterSide > 10) {
-            if(spriteNumSide == 1) {
-                spriteNumSide = 2;
-            } else if (spriteNumSide == 2) {
-                spriteNumSide = 3;
-            } else if (spriteNumSide == 3) {
-                spriteNumSide = 1;
-            }
+            if(spriteNumSide == 1) spriteNumSide = 2;
+            else if (spriteNumSide == 2) spriteNumSide = 3;
+            else if (spriteNumSide == 3) spriteNumSide = 1;
             spriteCounterSide = 0;
         }
     }

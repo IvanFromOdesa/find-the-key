@@ -79,8 +79,8 @@ public class EntityPlacer {
     public void setNpc() {
         // MONK
         gp.npc[0] = new NPC_Monk(gp);
-        gp.npc[0].worldX = TILE_SIZE * 30;
-        gp.npc[0].worldY = TILE_SIZE * 15;
+        gp.npc[0].worldX = TILE_SIZE * 12;
+        gp.npc[0].worldY = TILE_SIZE * 12;
 
         // NATALIE
         gp.npc[1] = new NPC_Natalie(gp);

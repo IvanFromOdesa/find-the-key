@@ -78,11 +78,12 @@ public abstract class Entity extends ScreenPositionKeeper {
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
         gp.cChecker.checkPlayer(this);
+        gp.cChecker.checkEntity(this, gp.npc);
 
-        defineCollision();
+        moveEntity();
     }
 
-    protected void defineCollision() {
+    protected void moveEntity() {
         if(!collisionOn) {
             switch (direction) {
                 case "stand": break;
@@ -134,7 +135,10 @@ public abstract class Entity extends ScreenPositionKeeper {
                 direction = "right";
                 checkMovementAvailability();
             }
-            if (choice > 100 && choice <= 140) direction = "stand";
+            if (choice > 100 && choice <= 140) {
+                direction = "stand";
+                checkMovementAvailability();
+            }
             actionLockCounter = 0;
         }
     }

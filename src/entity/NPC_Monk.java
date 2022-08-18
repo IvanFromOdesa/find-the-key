@@ -17,10 +17,10 @@ public class NPC_Monk extends Entity{
         direction = "stand";
         speed = 1;
 
-        topBorder = TILE_SIZE * 15;
+        topBorder = TILE_SIZE * 10;
         bottomBorder = TILE_SIZE * 20;
-        leftBorder = TILE_SIZE * 25;
-        rightBorder = TILE_SIZE * 40;
+        leftBorder = TILE_SIZE * 10;
+        rightBorder = TILE_SIZE * 20;
 
         solidArea = new Rectangle(15, 36, 18, 12);
         solidAreaDefaultX = 15;
