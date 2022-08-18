@@ -30,7 +30,7 @@ public class Player extends Entity {
 
         this.keyH = keyH;
 
-        imgSpec = "player/";
+        imgPath = "player/";
 
         screenX = SCREEN_WIDTH / 2 - TILE_SIZE / 2;
         screenY = SCREEN_HEIGHT / 2 - TILE_SIZE / 2;
@@ -50,7 +50,7 @@ public class Player extends Entity {
         direction = "stand";
     }
 
-    public void getPlayerImage() {
+    private void getPlayerImage() {
         stand = setup("Vita");
         down1 = setup("Vita_down1");
         down2 = setup("Vita_down2");
@@ -66,17 +66,12 @@ public class Player extends Entity {
 
     @Override
     public void update() {
-        if(keyH.upPressed) {
-            direction = "up";
-        } else if(keyH.downPressed) {
-            direction = "down";
-        } else if(keyH.leftPressed) {
-            direction = "left";
-        } else if(keyH.rightPressed) {
-            direction = "right";
-        } else {
-            direction = "stand";
-        }
+
+        if(keyH.upPressed) direction = "up";
+        else if(keyH.downPressed) direction = "down";
+        else if(keyH.leftPressed) direction = "left";
+        else if(keyH.rightPressed) direction = "right";
+        else direction = "stand";
 
         // CHECK TILE COLLISION
         collisionOn = false;
@@ -91,19 +86,15 @@ public class Player extends Entity {
         interactNPC(npcIndex);
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        defineCollision();
+        moveEntity();
 
         spriteCounterSide ++;
 
         // SIDE PLAYER's MOVEMENT
         if(spriteCounterSide > 10) {
-            if(spriteNumSide == 1) {
-                spriteNumSide = 2;
-            } else if (spriteNumSide == 2) {
-                spriteNumSide = 3;
-            } else if (spriteNumSide == 3) {
-                spriteNumSide = 1;
-            }
+            if(spriteNumSide == 1) spriteNumSide = 2;
+            else if (spriteNumSide == 2) spriteNumSide = 3;
+            else if (spriteNumSide == 3) spriteNumSide = 1;
             spriteCounterSide = 0;
         }
     }

@@ -5,15 +5,22 @@ import main.GamePanel;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import static main.GamePanel.TILE_SIZE;
+
 public class NPC_Monk extends Entity{
 
     public NPC_Monk(GamePanel gp) {
         super(gp);
 
-        imgSpec = "park/npc/monk/";
+        imgPath = "park/npc/monk/";
 
         direction = "stand";
         speed = 1;
+
+        topBorder = TILE_SIZE * 10;
+        bottomBorder = TILE_SIZE * 20;
+        leftBorder = TILE_SIZE * 10;
+        rightBorder = TILE_SIZE * 20;
 
         solidArea = new Rectangle(15, 36, 18, 12);
         solidAreaDefaultX = 15;
@@ -41,16 +48,6 @@ public class NPC_Monk extends Entity{
         actionLockCounter ++;
 
         // NPC persists movement direction for 3 seconds
-        if(actionLockCounter == 180) {
-            Random random = new Random();
-            int choice = random.nextInt(140) + 1;
-
-            if(choice <= 25) direction = "up";
-            if(choice > 25 && choice <= 50) direction = "down";
-            if(choice > 50 && choice <= 75) direction = "left";
-            if(choice > 75 && choice <= 100) direction = "right";
-            if(choice > 100 && choice <= 140) direction = "stand";
-            actionLockCounter = 0;
-        }
+        basicAI(180);
     }
 }

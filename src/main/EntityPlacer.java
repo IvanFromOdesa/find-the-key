@@ -1,6 +1,7 @@
 package main;
 
 import entity.NPC_Monk;
+import entity.NPC_Natalie;
 import object.*;
 
 import static main.GamePanel.TILE_SIZE;
@@ -19,70 +20,39 @@ public class EntityPlacer {
     public void setObject() {
 
         // TREE 1
-        gp.objects[0] = new OBJ_Tree_1();
-
-        // COORDINATES
-        gp.objects[0].worldX = 9 * TILE_SIZE;
-        gp.objects[0].worldY = 17 * TILE_SIZE;
-
-        gp.objects[1] = new OBJ_Tree_1();
-
-        gp.objects[1].worldX = 10 * TILE_SIZE;
-        gp.objects[1].worldY = 19 * TILE_SIZE;
-
-        gp.objects[2] = new OBJ_Tree_1();
-
-        gp.objects[2].worldX = 23 * TILE_SIZE;
-        gp.objects[2].worldY = 7 * TILE_SIZE;
+        setEntities(gp.objects, new OBJ_Tree_1(), 0, 9, 17);
+        setEntities(gp.objects, new OBJ_Tree_1(), 1, 10, 19);
+        setEntities(gp.objects, new OBJ_Tree_1(), 2, 23, 7);
 
         // TREE 2
-        gp.objects[3] = new OBJ_Tree_2();
-
-        gp.objects[3].worldX = 17 * TILE_SIZE;
-        gp.objects[3].worldY = 4 * TILE_SIZE;
-
-        gp.objects[4] = new OBJ_Tree_2();
-
-        gp.objects[4].worldX = 29 * TILE_SIZE;
-        gp.objects[4].worldY = 17 * TILE_SIZE;
+        setEntities(gp.objects, new OBJ_Tree_2(), 3, 17, 4);
+        setEntities(gp.objects, new OBJ_Tree_2(), 4, 29, 17);
 
         // BUSH 1
-        gp.objects[5] = new OBJ_Bush_1();
-
-        gp.objects[5].worldX = 25 * TILE_SIZE;
-        gp.objects[5].worldY = 15 * TILE_SIZE;
-
-        /*gp.objects[6] = new OBJ_Bush_1();
-
-        gp.objects[6].worldX = 15 * TILE_SIZE;
-        gp.objects[6].worldY = 21 * TILE_SIZE;*/
+        setEntities(gp.objects, new OBJ_Bush_1(), 5, 25, 15);
+        //setEntities(gp.objects, new OBJ_Bush_1(), 6, 15, 21);
 
         // BUSH 2
-        gp.objects[7] = new OBJ_Bush_2();
-
-        gp.objects[7].worldX = 22 * TILE_SIZE;
-        gp.objects[7].worldY = 9 * TILE_SIZE;
-
-        gp.objects[8] = new OBJ_Bush_2();
-
-        gp.objects[8].worldX = 24 * TILE_SIZE;
-        gp.objects[8].worldY = 10 * TILE_SIZE;
+        setEntities(gp.objects, new OBJ_Bush_2(), 7, 22, 9);
+        setEntities(gp.objects, new OBJ_Bush_2(), 8, 24, 10);
 
         // BUSH 3
-        gp.objects[9] = new OBJ_Bush_3();
+        setEntities(gp.objects, new OBJ_Bush_3(), 9, 6, 20);
 
-        gp.objects[9].worldX = 6 * TILE_SIZE;
-        gp.objects[9].worldY = 20 * TILE_SIZE;
-
-//        gp.objects[10] = new OBJ_Bush_3();
-//
-//        gp.objects[10].worldX = 15 * TILE_SIZE;
-//        gp.objects[10].worldY = 10 * TILE_SIZE;
+        // ROCK 1
+        setEntities(gp.objects, new OBJ_Rock_1(), 10, 14, 23);
     }
 
     public void setNpc() {
-        gp.npc[0] = new NPC_Monk(gp);
-        gp.npc[0].worldX = TILE_SIZE * 15;
-        gp.npc[0].worldY = TILE_SIZE * 10;
+        // MONK
+        setEntities(gp.npc, new NPC_Monk(gp), 0, 12, 12);
+        // NATALIE
+        setEntities(gp.npc, new NPC_Natalie(gp), 1, 11, 11);
+    }
+
+    private <T extends PositionKeeper> void setEntities(T[] array, T ent, int index, int worldX, int worldY) {
+        array[index] = ent;
+        array[index].worldX = TILE_SIZE * worldX;
+        array[index].worldY = TILE_SIZE * worldY;
     }
 }

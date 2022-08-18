@@ -1,9 +1,8 @@
 package object;
 
 import lombok.Getter;
-import lombok.Setter;
 import main.GamePanel;
-import main.ScreenPositionKeeper;
+import main.PositionKeeper;
 import main.UtilityTool;
 
 import java.awt.*;
@@ -11,7 +10,7 @@ import java.awt.image.BufferedImage;
 
 import static main.GamePanel.*;
 
-public class SuperObject extends ScreenPositionKeeper {
+public class SuperObject extends PositionKeeper {
 
     protected BufferedImage image;
 
@@ -26,7 +25,6 @@ public class SuperObject extends ScreenPositionKeeper {
 
     // OBJECT's WIDTH AND HEIGHT
     protected int scaleX, scaleY;
-    public int worldX, worldY;
 
     public Rectangle solidArea;
     public int solidAreaDefaultX = 0;
