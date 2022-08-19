@@ -7,7 +7,7 @@ import java.util.Objects;
 
 import static main.GamePanel.TILE_SIZE;
 
-public class OBJ_Rock_1 extends SuperObject{
+public class OBJ_Rock_1 extends SuperObject {
 
     public OBJ_Rock_1() {
         name = "Rock_1";

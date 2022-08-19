@@ -7,18 +7,24 @@ import main.PositionKeeper;
 import main.UtilityTool;
 
 import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
 
-import static main.GamePanel.*;
+import static main.GamePanel.SCREEN_HEIGHT;
+import static main.GamePanel.SCREEN_WIDTH;
+import static main.GamePanel.TILE_SIZE;
+import static main.GamePanel.WORLD_HEIGHT;
+import static main.GamePanel.WORLD_WIDTH;
 
 public abstract class Entity extends PositionKeeper {
 
     GamePanel gp;
+
+    @Getter
+    protected String name;
 
     @Getter
     protected int speed;
@@ -26,6 +32,9 @@ public abstract class Entity extends PositionKeeper {
 
     @Getter
     protected String direction;
+
+    @Setter
+    private boolean isStopped = false;
     protected int spriteCounter = 0;
     protected int spriteNum = 1;
 
@@ -42,8 +51,17 @@ public abstract class Entity extends PositionKeeper {
     protected int actionLockCounter;
     protected int topBorder, bottomBorder, leftBorder, rightBorder;
     private BufferedImage image;
+    private int messageCounter = 0;
+
+    private boolean collisionOnEntity = false;
+    private String quote;
 
     UtilityTool uTool = new UtilityTool();
+
+    public final String[] QUOTES = {"Sorry!", "I'm sorry!", "Watch where you going",
+                                    "You blind?", "I'm really sorry for that",
+                                    "I keep my eye on you",
+                                    "Oh, that hurts...", "Oops..."};
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -70,8 +88,26 @@ public abstract class Entity extends PositionKeeper {
 
     }
 
+    /**
+     * This method is used for dialogues.
+     */
+    public void speak() {
+
+    }
+
+    protected final void setDialogueBehaviour(String[] dialogues) {
+
+        gp.ui.setCurrentDialogue(dialogues[new Random().nextInt(dialogues.length)]);
+
+        this.direction = "stand";
+        this.isStopped = true;
+    }
+
     public void update() {
-        setAction();
+
+        if(gp.gameState == gp.PLAY_STATE) this.isStopped = false;
+
+        if(!isStopped) setAction();
         collisionOn = false;
 
         gp.cChecker.checkTile(this);
@@ -79,7 +115,20 @@ public abstract class Entity extends PositionKeeper {
         gp.cChecker.checkPlayer(this);
         gp.cChecker.checkEntity(this, gp.npc);
 
-        moveEntity();
+        if(!isStopped) moveEntity();
+        checkForDialogue();
+
+    }
+
+    private void checkForDialogue() {
+        if(this.worldX - gp.player.worldX >= -TILE_SIZE && this.worldY - gp.player.worldY >= -TILE_SIZE &&
+                this.worldX - gp.player.worldX <= TILE_SIZE && this.worldY - gp.player.worldY <= TILE_SIZE &&
+                gp.keyH.enterPressed) {
+            gp.gameState = gp.DIALOGUE_STATE;
+            this.speak();
+
+            gp.keyH.enterPressed = false;
+        }
     }
 
     protected void moveEntity() {
@@ -106,14 +155,14 @@ public abstract class Entity extends PositionKeeper {
 
     // CHECKS IF THE NPC OR MONSTER CAN MOVE TO CERTAIN LOCATIONS
 
-    protected void checkMovementAvailability() {
+    private void checkMovementAvailability() {
         if(this.worldY < topBorder) direction = "down";
         else if(this.worldY > bottomBorder) direction = "up";
         else if(this.worldX < leftBorder) direction = "right";
         else if(this.worldX > rightBorder) direction = "left";
     }
 
-    protected void basicAI(int framesNum) {
+    protected final void basicAI(int framesNum) {
         if (actionLockCounter == framesNum) {
             Random random = new Random();
             int choice = random.nextInt(140) + 1;
@@ -157,6 +206,8 @@ public abstract class Entity extends PositionKeeper {
                 worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
             chooseDirection();
             g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+
+            if(collisionOnEntity) displayQuotes(g2);
         }
         // If player is around the edge, draw everything
         else if(gp.player.worldX < gp.player.screenX ||
@@ -165,6 +216,22 @@ public abstract class Entity extends PositionKeeper {
                 SCREEN_HEIGHT - gp.player.screenY > WORLD_HEIGHT - gp.player.worldY) {
             chooseDirection();
             g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+
+            if(collisionOnEntity) displayQuotes(g2);
+        }
+    }
+
+    protected void displayQuotes(Graphics2D g2) {
+        g2.setFont(new Font("MV Boli", Font.PLAIN, 20));
+        g2.setColor(Color.WHITE);
+
+        g2.drawString(quote, (int) ((this.screenX + 24) -
+                (g2.getFontMetrics().getStringBounds(quote, g2).getWidth()) / 2), this.screenY - 5);
+        messageCounter++;
+
+        if(messageCounter == 120){
+            collisionOnEntity = false;
+            messageCounter = 0;
         }
     }
 
@@ -190,5 +257,10 @@ public abstract class Entity extends PositionKeeper {
                 if(spriteNum == 2) image = left2;
                 break;
         }
+    }
+
+    public void setCollisionOnEntity(boolean collisionOnEntity) {
+        this.collisionOnEntity = collisionOnEntity;
+        if(messageCounter == 0) quote = this.QUOTES[new Random().nextInt(QUOTES.length)];
     }
 }

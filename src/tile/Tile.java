@@ -3,14 +3,15 @@ package tile;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 @Getter
 @Setter
-
 public class Tile  {
 
-    public BufferedImage image;
+    private BufferedImage image;
+    private Image icon;
     public boolean collision = false;
 
 }

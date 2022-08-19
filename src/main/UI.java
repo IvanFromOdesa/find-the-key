@@ -1,65 +1,84 @@
 package main;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
 import static main.GamePanel.SCREEN_HEIGHT;
 import static main.GamePanel.SCREEN_WIDTH;
+import static main.GamePanel.TILE_SIZE;
 
 public class UI {
 
     GamePanel gp;
+
     Graphics2D g2;
     Font font;
-    //BufferedImage icon; // ui icon
-    public boolean messageOn = false;
-    public String message = "";
-    int messageCount = 0;
+
+    @Getter
+    @Setter
+    private String currentDialogue = "";
 
     public UI(GamePanel gp) {
         this.gp = gp;
         font = new Font("MV Boli", Font.PLAIN, 40);
     }
 
-    public void showMessage(String text) {
-        message = text;
-        messageOn = true;
-    }
-
     public void draw(Graphics2D g2) {
-        /*g2.setFont(font);
-        g2.setColor(Color.WHITE);
-        g2.drawString("Vita", 25, 50);
-
-        // MESSAGE
-        if(messageOn) {
-            g2.setFont(g2.getFont().deriveFont(30f));
-            g2.drawString(message, 24, 240);
-
-            messageCount++;
-
-            // THE TEXT DISAPPEARS AFTER 120 FRAMES (2 SECONDS)
-            if(messageCount > 120) {
-                messageCount = 0;
-                messageOn = false;
-            }
-        }*/
 
         this.g2 = g2;
 
         g2.setFont(font);
         g2.setColor(Color.WHITE);
 
-        if(gp.gameState == gp.playState) {
+        // PLAY STATE
+        if(gp.gameState == gp.PLAY_STATE) {
             // Some stuff
         }
-        if(gp.gameState == gp.pauseState) {
+        // PAUSE STATE
+        if(gp.gameState == gp.PAUSE_STATE) {
             drawPauseScreen();
+        }
+        // DIALOGUE STATE
+        if(gp.gameState == gp.DIALOGUE_STATE) {
+            drawDialogueScreen();
         }
     }
 
-    public void drawPauseScreen() {
+    private void drawDialogueScreen() {
+
+        // WINDOW
+        int x = TILE_SIZE * 2;
+        int y = TILE_SIZE / 2;
+        int width = SCREEN_WIDTH - (TILE_SIZE * 4);
+        int height = TILE_SIZE * 4;
+
+        drawSubWindow(x, y, width, height);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28f));
+        x += TILE_SIZE;
+        y += TILE_SIZE;
+
+        for(String line : currentDialogue.split("\n")) {
+            g2.drawString(line, x, y);
+            y += 30;
+        }
+    }
+
+    private void drawSubWindow(int x, int y, int width, int height) {
+        g2.setColor(new Color(0, 0, 0, 100));
+        g2.fillRoundRect(x, y, width ,height, 35, 35);
+        g2.setColor(new Color(255, 255, 255));
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x + 5, y +5, width -10, height -10, 25, 25);
+    }
+
+
+    private void drawPauseScreen() {
 
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 70));
 

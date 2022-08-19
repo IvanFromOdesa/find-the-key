@@ -6,7 +6,9 @@ import main.PositionKeeper;
 import main.UtilityTool;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,16 +96,24 @@ public class TileManager extends PositionKeeper {
         setup(25, "park", "grounds/ground_part_top_right", false);
 
         // NENUPHAR
-        setup(26, "park", "water/nenuphar", false);
+        setup(26, "park", "water/nenuphar", true);
         // NENUPHAR V2 WITHOUT LITTLE NENUPHAR
-        setup(27, "park", "water/nenuphar_v2", false);
+        setup(27, "park", "water/nenuphar_v2", true);
         // LILIA V1
-        setup(28, "park", "water/lilia_v1", false);
+        setup(28, "park", "water/lilia_v1", true);
         // LILIA V2
-        setup(29, "park", "water/lilia_v2", false);
+        setup(29, "park", "water/lilia_v2", true);
         // LILIA V3
-        setup(30, "park", "water/lilia_v3", false);
+        setup(30, "park", "water/lilia_v3", true);
 
+    }
+
+    public void setGIF(int index, String location, String imagePath, boolean collision) {
+        tile[index] = new Tile();
+        tile[index].setIcon(new ImageIcon(Objects.requireNonNull(
+                getClass().getResource("/" + location + "/tiles/" + imagePath + ".gif"))).getImage());
+        tile[index].setIcon(tile[index].getIcon().getScaledInstance(TILE_SIZE, TILE_SIZE, Image.SCALE_DEFAULT));
+        tile[index].setCollision(collision);
     }
 
     public void setup(int index, String location, String imagePath, boolean collision) {
@@ -112,7 +122,7 @@ public class TileManager extends PositionKeeper {
             tile[index] = new Tile();
             tile[index].setImage(ImageIO.read(Objects.requireNonNull(
                     getClass().getResourceAsStream("/" + location + "/tiles/" + imagePath + ".png"))));
-            tile[index].setImage(uTool.scaleImage(tile[index].image, TILE_SIZE, TILE_SIZE));
+            tile[index].setImage(uTool.scaleImage(tile[index].getImage(), TILE_SIZE, TILE_SIZE));
             tile[index].setCollision(collision);
 
         } catch (IOException e) {

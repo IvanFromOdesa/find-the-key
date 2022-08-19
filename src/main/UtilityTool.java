@@ -1,11 +1,13 @@
 package main;
 
+import javax.swing.*;
+
 import static main.GamePanel.SCREEN_HEIGHT;
 import static main.GamePanel.SCREEN_WIDTH;
 import static main.GamePanel.WORLD_HEIGHT;
 import static main.GamePanel.WORLD_WIDTH;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class UtilityTool {

@@ -3,15 +3,11 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
-import static main.GamePanel.SCREEN_HEIGHT;
-import static main.GamePanel.SCREEN_WIDTH;
-import static main.GamePanel.TILE_SIZE;
-import static main.GamePanel.WORLD_HEIGHT;
-import static main.GamePanel.WORLD_WIDTH;
+import static main.GamePanel.*;
 
 public class Player extends Entity {
 
@@ -82,8 +78,7 @@ public class Player extends Entity {
         pickUpPlayObject(objIndex);
 
         // CHECK NPC COLLISION
-        int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
-        interactNPC(npcIndex);
+        gp.cChecker.checkEntity(this, gp.npc);
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         moveEntity();
@@ -101,11 +96,6 @@ public class Player extends Entity {
 
     // FOR INTERACTIVE OBJECTS
     public void pickUpPlayObject(int i) {
-
-    }
-
-    // INTERACT WITH THE NPC's
-    public void interactNPC(int i) {
 
     }
 

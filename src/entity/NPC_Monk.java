@@ -3,14 +3,17 @@ package entity;
 import main.GamePanel;
 
 import java.awt.Rectangle;
-import java.util.Random;
 
 import static main.GamePanel.TILE_SIZE;
 
-public class NPC_Monk extends Entity{
+public class NPC_Monk extends Entity {
+
+    private final String[] DIALOGUES = new String[4];
 
     public NPC_Monk(GamePanel gp) {
         super(gp);
+
+        name = "Monk";
 
         imgPath = "park/npc/monk/";
 
@@ -27,9 +30,10 @@ public class NPC_Monk extends Entity{
         solidAreaDefaultY = 36;
 
         getNPC_MonkImage();
+        setDialogue();
     }
 
-    public void getNPC_MonkImage() {
+    private void getNPC_MonkImage() {
 
         stand = setup("monk_default");
         down1 = setup("monk_down_1");
@@ -42,12 +46,24 @@ public class NPC_Monk extends Entity{
         left2 = setup("monk_left_2");
     }
 
+    protected void setDialogue() {
+        DIALOGUES[0] = "Watch where you going!";
+        DIALOGUES[1] = "I have no time for you!";
+        DIALOGUES[2] = "Whatever";
+        DIALOGUES[3] = "Get out of my way, girl";
+    }
+
     @Override
-    public void setAction() {
+    protected void setAction() {
 
         actionLockCounter ++;
 
         // NPC persists movement direction for 3 seconds
         basicAI(180);
+    }
+
+    @Override
+    public void speak() {
+        setDialogueBehaviour(DIALOGUES);
     }
 }

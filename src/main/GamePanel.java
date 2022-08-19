@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // SYSTEM
     Thread gameThread;
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     SoundHandler music = new SoundHandler();
     SoundHandler se = new SoundHandler();
     TileManager tileM = new TileManager(this);
@@ -52,8 +52,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     // GAME STATE
     public int gameState;
-    public final  int playState = 1;
-    public final int pauseState = 2;
+    public final  int PLAY_STATE = 1;
+    public final int PAUSE_STATE = 2;
+    public final int DIALOGUE_STATE = 3;
 
     public UI ui = new UI(this);
 
@@ -100,7 +101,7 @@ public class GamePanel extends JPanel implements Runnable {
         entPlacer.setObject();
         entPlacer.setNpc();
         //playMusic(0);
-        gameState = playState;
+        gameState = PLAY_STATE;
     }
 
     public void startGameThread() {
@@ -109,7 +110,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        if(gameState == playState) {
+        if(gameState == PLAY_STATE || gameState == DIALOGUE_STATE) {
             // PLAYER
             player.update();
 
@@ -118,7 +119,7 @@ public class GamePanel extends JPanel implements Runnable {
                 if(c != null) c.update();
             });
         }
-        if(gameState == pauseState) {
+        if(gameState == PAUSE_STATE) {
             // nothing
         }
     }
@@ -157,7 +158,7 @@ public class GamePanel extends JPanel implements Runnable {
         // DEBUG
         if(keyH.checkDrawTime) {
             long drawEnd = System.nanoTime();
-            long passed = drawEnd - drawStart;
+            long passed = (drawEnd - drawStart) / 1000000;
             g2.setColor(Color.WHITE);
             g2.drawString("Draw Time: " + passed, 10, 400);
             //System.out.println("Draw Time: " + passed);
