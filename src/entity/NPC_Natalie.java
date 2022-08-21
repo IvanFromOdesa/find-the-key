@@ -13,8 +13,6 @@ public class NPC_Natalie extends Entity {
     public NPC_Natalie(GamePanel gp) {
         super(gp);
 
-        name = "Natalie";
-
         imgPath = "park/npc/natalie/";
 
         direction = "stand";

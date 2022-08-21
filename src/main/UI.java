@@ -17,7 +17,7 @@ public class UI {
     GamePanel gp;
 
     Graphics2D g2;
-    Font font;
+    Font maruMonica;
 
     @Getter
     @Setter
@@ -25,14 +25,14 @@ public class UI {
 
     public UI(GamePanel gp) {
         this.gp = gp;
-        font = new Font("MV Boli", Font.PLAIN, 40);
+        maruMonica = new UtilityTool().setFont(40f);
     }
 
     public void draw(Graphics2D g2) {
 
         this.g2 = g2;
 
-        g2.setFont(font);
+        g2.setFont(maruMonica);
         g2.setColor(Color.WHITE);
 
         // PLAY STATE

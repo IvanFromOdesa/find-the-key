@@ -6,10 +6,7 @@ import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.util.Arrays;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -40,6 +37,8 @@ public class GamePanel extends JPanel implements Runnable {
     SoundHandler music = new SoundHandler();
     SoundHandler se = new SoundHandler();
     TileManager tileM = new TileManager(this);
+    UtilityTool uTool = new UtilityTool();
+    Font font = uTool.setFont(30f);
 
     // COLLISION
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -160,8 +159,9 @@ public class GamePanel extends JPanel implements Runnable {
             long drawEnd = System.nanoTime();
             long passed = (drawEnd - drawStart) / 1000000;
             g2.setColor(Color.WHITE);
-            g2.drawString("Draw Time: " + passed, 10, 400);
-            //System.out.println("Draw Time: " + passed);
+            g2.setFont(font);
+            g2.drawString("Draw Time: " + passed + " msc", 10, 400);
+            uTool.displayJVMSpecsUsage(g2);
         }
 
         g2.dispose();

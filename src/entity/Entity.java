@@ -24,9 +24,6 @@ public abstract class Entity extends PositionKeeper {
     GamePanel gp;
 
     @Getter
-    protected String name;
-
-    @Getter
     protected int speed;
     protected BufferedImage stand, up1, up2, down1, down2, left1, left2, right1, right2;
 
@@ -57,6 +54,8 @@ public abstract class Entity extends PositionKeeper {
     private String quote;
 
     UtilityTool uTool = new UtilityTool();
+    Random random = new Random();
+    Font font = uTool.setFont(20f);
 
     public final String[] QUOTES = {"Sorry!", "I'm sorry!", "Watch where you going",
                                     "You blind?", "I'm really sorry for that",
@@ -222,7 +221,7 @@ public abstract class Entity extends PositionKeeper {
     }
 
     protected void displayQuotes(Graphics2D g2) {
-        g2.setFont(new Font("MV Boli", Font.PLAIN, 20));
+        g2.setFont(font);
         g2.setColor(Color.WHITE);
 
         g2.drawString(quote, (int) ((this.screenX + 24) -
@@ -261,6 +260,6 @@ public abstract class Entity extends PositionKeeper {
 
     public void setCollisionOnEntity(boolean collisionOnEntity) {
         this.collisionOnEntity = collisionOnEntity;
-        if(messageCounter == 0) quote = this.QUOTES[new Random().nextInt(QUOTES.length)];
+        if(messageCounter == 0) quote = this.QUOTES[random.nextInt(QUOTES.length)];
     }
 }
