@@ -3,18 +3,18 @@ package object;
 import main.GamePanel;
 
 import javax.imageio.ImageIO;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
 import static main.GamePanel.TILE_SIZE;
 
-public class OBJ_Bush_3 extends SuperObject{
+public class OBJ_Trunk_1 extends SuperObject {
 
-    public OBJ_Bush_3(GamePanel gp) {
+    public OBJ_Trunk_1(GamePanel gp) {
         super(gp);
 
-        name = "Bush_3";
+        name = "Trunk_1";
         collision = true;
 
         scaleX = 1;
@@ -23,10 +23,10 @@ public class OBJ_Bush_3 extends SuperObject{
         width = TILE_SIZE * scaleX;
         height = TILE_SIZE * scaleY;
 
-        solidArea = new Rectangle(0, 0, width, height);
+        solidArea = new Rectangle(0, 100, width, 35);
 
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/park/objects/bush_3.png")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/park/objects/trunk_1.png")));
             uTool.scaleImage(image, width, height);
         } catch (IOException e) {
             e.printStackTrace();

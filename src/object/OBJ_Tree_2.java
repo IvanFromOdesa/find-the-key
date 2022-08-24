@@ -1,5 +1,7 @@
 package object;
 
+import main.GamePanel;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
@@ -9,7 +11,9 @@ import static main.GamePanel.TILE_SIZE;
 
 public class OBJ_Tree_2 extends SuperObject{
 
-    public OBJ_Tree_2() {
+    public OBJ_Tree_2(GamePanel gp) {
+
+        super(gp);
         name = "Tree_2";
         collision = true;
 

@@ -14,6 +14,8 @@ public class NPC_Natalie extends Entity {
         super(gp);
 
         imgPath = "park/npc/natalie/";
+        width = TILE_SIZE;
+        height = TILE_SIZE;
 
         direction = "stand";
         speed = 2;

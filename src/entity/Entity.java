@@ -7,7 +7,10 @@ import main.PositionKeeper;
 import main.UtilityTool;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
@@ -23,18 +26,26 @@ public abstract class Entity extends PositionKeeper {
 
     GamePanel gp;
 
+    // ENTITY SPRITES
+    protected BufferedImage stand, up1, up2, down1, down2, left1, left2, right1, right2;
+    protected String imgPath;
+    private BufferedImage image;
+    protected int spriteCounter = 0;
+    protected int spriteNum = 1;
+
+    // MOVEMENT AREA
+    protected int topBorder, bottomBorder, leftBorder, rightBorder;
+
     @Getter
     protected int speed;
-    protected BufferedImage stand, up1, up2, down1, down2, left1, left2, right1, right2;
 
     @Getter
     protected String direction;
 
     @Setter
     private boolean isStopped = false;
-    protected int spriteCounter = 0;
-    protected int spriteNum = 1;
 
+    // COLLISION
     @Getter
     protected Rectangle solidArea;
 
@@ -44,13 +55,12 @@ public abstract class Entity extends PositionKeeper {
 
     @Getter
     protected int solidAreaDefaultX, solidAreaDefaultY;
-    protected String imgPath;
-    protected int actionLockCounter;
-    protected int topBorder, bottomBorder, leftBorder, rightBorder;
-    private BufferedImage image;
-    private int messageCounter = 0;
-
     private boolean collisionOnEntity = false;
+
+    // COUNTER
+    private int messageCounter = 0;
+    protected int actionLockCounter;
+
     private String quote;
 
     UtilityTool uTool = new UtilityTool();
@@ -115,19 +125,20 @@ public abstract class Entity extends PositionKeeper {
         gp.cChecker.checkEntity(this, gp.npc);
 
         if(!isStopped) moveEntity();
-        checkForDialogue();
 
+        if(this.worldX - gp.player.worldX >= -TILE_SIZE &&
+                this.worldY - gp.player.worldY >= -TILE_SIZE &&
+                this.worldX - gp.player.worldX <= TILE_SIZE &&
+                this.worldY - gp.player.worldY <= TILE_SIZE &&
+                gp.keyH.enterPressed) {
+            startDialogue();
+        }
     }
 
-    private void checkForDialogue() {
-        if(this.worldX - gp.player.worldX >= -TILE_SIZE && this.worldY - gp.player.worldY >= -TILE_SIZE &&
-                this.worldX - gp.player.worldX <= TILE_SIZE && this.worldY - gp.player.worldY <= TILE_SIZE &&
-                gp.keyH.enterPressed) {
-            gp.gameState = gp.DIALOGUE_STATE;
-            this.speak();
-
-            gp.keyH.enterPressed = false;
-        }
+    private void startDialogue() {
+        gp.gameState = gp.DIALOGUE_STATE;
+        this.speak();
+        gp.keyH.enterPressed = false;
     }
 
     protected void moveEntity() {
@@ -190,6 +201,7 @@ public abstract class Entity extends PositionKeeper {
         }
     }
 
+    @Override
     public void draw(Graphics2D g2) {
         image = null;
 

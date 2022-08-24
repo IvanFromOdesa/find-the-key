@@ -3,9 +3,9 @@ package entity;
 import main.GamePanel;
 import main.KeyHandler;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 import static main.GamePanel.*;
 
@@ -27,6 +27,8 @@ public class Player extends Entity {
         this.keyH = keyH;
 
         imgPath = "player/";
+        width = TILE_SIZE;
+        height = TILE_SIZE;
 
         screenX = SCREEN_WIDTH / 2 - TILE_SIZE / 2;
         screenY = SCREEN_HEIGHT / 2 - TILE_SIZE / 2;

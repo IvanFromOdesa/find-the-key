@@ -6,8 +6,14 @@ import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.JPanel;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -48,6 +54,9 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyH);
     public SuperObject[] objects = new SuperObject[100];
     public Entity[] npc = new Entity[10];
+    ArrayList<PositionKeeper> entList = new ArrayList<>();
+
+    private int timer;
 
     // GAME STATE
     public int gameState;
@@ -117,6 +126,13 @@ public class GamePanel extends JPanel implements Runnable {
             Arrays.stream(npc).forEach(c -> {
                 if(c != null) c.update();
             });
+
+            // RESETTING PRESSED BUTTONS
+            timer++;
+            if(timer == 120) {
+                keyH.enterPressed = false;
+                timer = 0;
+            }
         }
         if(gameState == PAUSE_STATE) {
             // nothing
@@ -134,22 +150,18 @@ public class GamePanel extends JPanel implements Runnable {
         // TILES
         tileM.draw(g2);
 
-        // OBJECTS
-        Arrays.stream(objects).forEach(obj -> {
-            if(obj != null) {
-                obj.draw(g2, this);
-            }
-        });
+        // ADDING PLAYER, NPC AND OBJECTS INTO ONE ENTITY LIST
+        entList.add(player);
 
-        // NPCs
-        Arrays.stream(npc).forEach(c -> {
-            if(c != null) {
-                c.draw(g2);
-            }
-        });
+        Arrays.stream(npc).forEach(c -> { if(c != null) entList.add(c);});
+        Arrays.stream(objects).forEach(obj -> { if(obj != null) entList.add(obj);});
 
-        // PLAYER
-        player.draw(g2);
+        // SORTING ENTITIES BY THEIR POSITION
+        entList.sort(Comparator.comparingInt(o -> o.worldY + o.height));
+
+        // DRAW EVERYTHING
+        entList.forEach(ent -> ent.draw(g2));
+        entList.clear();
 
         // UI
         ui.draw(g2);

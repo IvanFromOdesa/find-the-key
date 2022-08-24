@@ -1,5 +1,7 @@
 package object;
 
+import main.GamePanel;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
@@ -9,7 +11,9 @@ import static main.GamePanel.TILE_SIZE;
 
 public class OBJ_Rock_1 extends SuperObject {
 
-    public OBJ_Rock_1() {
+    public OBJ_Rock_1(GamePanel gp) {
+        super(gp);
+
         name = "Rock_1";
         collision = true;
 

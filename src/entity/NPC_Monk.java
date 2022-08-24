@@ -14,6 +14,8 @@ public class NPC_Monk extends Entity {
         super(gp);
 
         imgPath = "park/npc/monk/";
+        width = TILE_SIZE;
+        height = TILE_SIZE;
 
         direction = "stand";
         speed = 1;

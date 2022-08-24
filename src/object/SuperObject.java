@@ -5,10 +5,15 @@ import main.GamePanel;
 import main.PositionKeeper;
 import main.UtilityTool;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import static main.GamePanel.*;
+import static main.GamePanel.SCREEN_HEIGHT;
+import static main.GamePanel.SCREEN_WIDTH;
+import static main.GamePanel.TILE_SIZE;
+import static main.GamePanel.WORLD_HEIGHT;
+import static main.GamePanel.WORLD_WIDTH;
 
 public class SuperObject extends PositionKeeper {
 
@@ -20,9 +25,6 @@ public class SuperObject extends PositionKeeper {
     @Getter
     protected boolean collision = false;
 
-    // OBJECT's REAL WIDTH AND HEIGHT
-    protected int width, height;
-
     // OBJECT's WIDTH AND HEIGHT
     protected int scaleX, scaleY;
 
@@ -31,8 +33,14 @@ public class SuperObject extends PositionKeeper {
     public int solidAreaDefaultY = 0;
 
     UtilityTool uTool = new UtilityTool();
+    GamePanel gp;
 
-    public void draw(Graphics2D g2, GamePanel gp) {
+    public SuperObject(GamePanel gp) {
+        this.gp = gp;
+    }
+
+    @Override
+    public void draw(Graphics2D g2) {
 
         screenX = worldX - gp.player.worldX + gp.player.screenX;
         screenY = worldY - gp.player.worldY + gp.player.screenY;
