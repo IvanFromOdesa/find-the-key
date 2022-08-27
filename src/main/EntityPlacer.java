@@ -2,6 +2,7 @@ package main;
 
 import entity.NPC_Monk;
 import entity.NPC_Natalie;
+import entity.NPC_Viki;
 import object.*;
 
 import static main.GamePanel.TILE_SIZE;
@@ -54,7 +55,9 @@ public class EntityPlacer {
         // MONK
         setEntitiesByTile(gp.npc, new NPC_Monk(gp), 0, 12, 12);
         // NATALIE
-        setEntitiesByTile(gp.npc, new NPC_Natalie(gp), 1, 11, 11);
+        setEntitiesByTile(gp.npc, new NPC_Natalie(gp), 1, 13, 12);
+        // VIKI
+        setEntitiesByTile(gp.npc, new NPC_Viki(gp), 2, 14, 12);
     }
 
     private <T extends PositionKeeper> void setEntitiesByTile(T[] array, T ent, int index, int worldX, int worldY) {

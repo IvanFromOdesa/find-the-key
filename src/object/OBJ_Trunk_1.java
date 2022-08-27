@@ -23,7 +23,7 @@ public class OBJ_Trunk_1 extends SuperObject {
         width = TILE_SIZE * scaleX;
         height = TILE_SIZE * scaleY;
 
-        solidArea = new Rectangle(0, 100, width, 35);
+        solidArea = new Rectangle(0, 100, width, 45);
 
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/park/objects/trunk_1.png")));

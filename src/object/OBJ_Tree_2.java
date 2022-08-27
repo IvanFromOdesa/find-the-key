@@ -26,7 +26,7 @@ public class OBJ_Tree_2 extends SuperObject{
         solidAreaDefaultX = 20;
         solidAreaDefaultY = 20;
 
-        solidArea = new Rectangle(20, 20, width - 30, height - 35);
+        solidArea = new Rectangle(20, 20, width - 30, height - 25);
 
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/park/objects/tree_2.png")));

@@ -12,7 +12,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -123,9 +122,7 @@ public class GamePanel extends JPanel implements Runnable {
             player.update();
 
             // NPCs
-            Arrays.stream(npc).forEach(c -> {
-                if(c != null) c.update();
-            });
+            for(Entity entity : npc) {if(entity != null) entity.update();}
 
             // RESETTING PRESSED BUTTONS
             timer++;
@@ -153,14 +150,15 @@ public class GamePanel extends JPanel implements Runnable {
         // ADDING PLAYER, NPC AND OBJECTS INTO ONE ENTITY LIST
         entList.add(player);
 
-        Arrays.stream(npc).forEach(c -> { if(c != null) entList.add(c);});
-        Arrays.stream(objects).forEach(obj -> { if(obj != null) entList.add(obj);});
+        for (Entity entity : npc) {if (entity != null) entList.add(entity);}
+
+        for (SuperObject object : objects) {if (object != null) entList.add(object);}
 
         // SORTING ENTITIES BY THEIR POSITION
         entList.sort(Comparator.comparingInt(o -> o.worldY + o.height));
 
         // DRAW EVERYTHING
-        entList.forEach(ent -> ent.draw(g2));
+        for(PositionKeeper keeper : entList) {keeper.draw(g2);}
         entList.clear();
 
         // UI
