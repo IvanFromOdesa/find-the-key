@@ -12,6 +12,7 @@ public class Tile  {
 
     private BufferedImage image;
     private Image icon;
-    public boolean collision = false;
+    private boolean animated;
+    public boolean collision;
 
 }

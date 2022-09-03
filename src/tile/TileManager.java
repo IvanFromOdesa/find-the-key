@@ -31,7 +31,7 @@ public class TileManager extends PositionKeeper {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[31]; // 31s types of tiles
+        tile = new Tile[39]; // 39 types of tiles
 
         mapTileNum = new int[MAX_WORLD_COLUMN][MAX_WORLD_ROW];
         getTileImage();
@@ -46,26 +46,34 @@ public class TileManager extends PositionKeeper {
         setup(1, "park", "grasses/grass_2", false);
         setup(2, "park", "grasses/grass_3", false);
         setup(3, "park", "grasses/grass_4", false);
+        setup(31, "park", "grasses/grass_5", false);
+        setup(32, "park", "grasses/grass_6", false);
+        setup(33, "park", "grasses/grass_7", false);
+        setup(34, "park", "grasses/grass_8", false);
+        setup(35, "park", "grasses/grass_9", false);
+        setup(36, "park", "grasses/grass_10", false);
+        setup(37, "park", "grasses/grass_11", false);
+        setup(38, "park", "grasses/grass_12", false);
 
         // WATER
         // FILL
-        setup(4, "park", "water/water_fill", true);
+        setGIF(4, "park", "water/water_fill", true);
         // BOTTOM LEFT
-        setup(5, "park", "water/water_angle_bottom_left", true);
+        setGIF(5, "park", "water/water_angle_bottom_left", true);
         // BOTTOM RIGHT
-        setup(6, "park", "water/water_angle_bottom_right", true);
+        setGIF(6, "park", "water/water_angle_bottom_right", true);
         // TOP LEFT
-        setup(7, "park", "water/water_angle_top_left", true);
+        setGIF(7, "park", "water/water_angle_top_left", true);
         // TOP RIGHT
-        setup(8, "park", "water/water_angle_top_right", true);
+        setGIF(8, "park", "water/water_angle_top_right", true);
         // SIDE BOTTOM
-        setup(9, "park", "water/water_side_bottom", true);
+        setGIF(9, "park", "water/water_side_bottom", true);
         // SIDE LEFT
-        setup(10, "park", "water/water_side_left", true);
+        setGIF(10, "park", "water/water_side_left", true);
         // SIDE RIGHT
-        setup(11, "park", "water/water_side_right", true);
+        setGIF(11, "park", "water/water_side_right", true);
         // SIDE TOP
-        setup(12, "park", "water/water_side_top", true);
+        setGIF(12, "park", "water/water_side_top", true);
 
         // GROUND
         //  FILL
@@ -114,6 +122,7 @@ public class TileManager extends PositionKeeper {
                 getClass().getResource("/" + location + "/tiles/" + imagePath + ".gif"))).getImage());
         tile[index].setIcon(tile[index].getIcon().getScaledInstance(TILE_SIZE, TILE_SIZE, Image.SCALE_DEFAULT));
         tile[index].setCollision(collision);
+        tile[index].setAnimated(true);
     }
 
     public void setup(int index, String location, String imagePath, boolean collision) {
@@ -188,13 +197,20 @@ public class TileManager extends PositionKeeper {
            if (worldX + TILE_SIZE > gp.player.worldX - gp.player.screenX &&
                 worldX - TILE_SIZE < gp.player.worldX  + gp.player.screenX &&
                 worldY + TILE_SIZE > gp.player.worldY - gp.player.screenY &&
-                worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
+                worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY &&
+                   !tile[tileNum].isAnimated()) {
                g2.drawImage(tile[tileNum].getImage(), screenX, screenY, null);
            }
-           else if (gp.player.screenX > gp.player.worldX || gp.player.screenY > gp.player.worldY ||
+           else if ((gp.player.screenX > gp.player.worldX || gp.player.screenY > gp.player.worldY ||
                    SCREEN_WIDTH - gp.player.screenX > WORLD_WIDTH - gp.player.worldX ||
-                   SCREEN_HEIGHT - gp.player.screenY > WORLD_HEIGHT - gp.player.worldY) {
+                   SCREEN_HEIGHT - gp.player.screenY > WORLD_HEIGHT - gp.player.worldY) &&
+                   !tile[tileNum].isAnimated()) {
                g2.drawImage(tile[tileNum].getImage(), screenX, screenY, null);
+           }
+
+           // DRAW WHOLE ANIMATED TILES
+           if(tile[tileNum].isAnimated()) {
+               g2.drawImage(tile[tileNum].getIcon(), screenX, screenY, null);
            }
            worldCol++;
 
