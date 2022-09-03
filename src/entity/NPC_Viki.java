@@ -20,10 +20,10 @@ public class NPC_Viki extends Entity {
         direction = "stand";
         speed = 3;
 
-        topBorder = TILE_SIZE * 10;
-        bottomBorder = TILE_SIZE * 14;
-        leftBorder = TILE_SIZE * 10;
-        rightBorder = TILE_SIZE * 14;
+        topBorder = TILE_SIZE * 15;
+        bottomBorder = TILE_SIZE * 19;
+        leftBorder = TILE_SIZE * 28;
+        rightBorder = TILE_SIZE * 33;
 
         solidArea = new Rectangle(15, 36, 18, 12);
         solidAreaDefaultX = 15;

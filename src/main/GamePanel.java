@@ -171,6 +171,7 @@ public class GamePanel extends JPanel implements Runnable {
             g2.setColor(Color.WHITE);
             g2.setFont(font);
             g2.drawString("Draw Time: " + passed + " msc", 10, 400);
+            g2.drawString("Player WX: " + player.worldX + ", WY: " + player.worldY, 10, 30);
             uTool.displayJVMSpecsUsage(g2);
         }
 

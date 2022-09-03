@@ -27,10 +27,24 @@ public class EntityPlacer {
         setEntitiesByTile(gp.objects, new OBJ_Tree_1(gp), 6, 2, 1);
         setEntitiesManually(gp.objects, new OBJ_Tree_1(gp), 12, 150, 30);
         setEntitiesManually(gp.objects, new OBJ_Tree_1(gp), 15, 1230, 25);
+        setEntitiesManually(gp.objects, new OBJ_Tree_1(gp), 25, 1368, 520);
 
         // TREE 2
         setEntitiesByTile(gp.objects, new OBJ_Tree_2(gp), 3, 17, 4);
         setEntitiesByTile(gp.objects, new OBJ_Tree_2(gp), 4, 29, 17);
+
+        // TREE 3
+        setEntitiesByTile(gp.objects, new OBJ_Tree_3(gp), 16, 2, 21);
+        setEntitiesByTile(gp.objects, new OBJ_Tree_3(gp), 17, 33, 20);
+        setEntitiesByTile(gp.objects, new OBJ_Tree_3(gp), 21, 30, 7);
+        setEntitiesByTile(gp.objects, new OBJ_Tree_3(gp), 22, 32, 7);
+        setEntitiesByTile(gp.objects, new OBJ_Tree_3(gp), 23, 34, 7);
+        setEntitiesByTile(gp.objects, new OBJ_Tree_3(gp), 24, 36, 7);
+
+        // TREE 4
+        /*setEntitiesByTile(gp.objects, new OBJ_Tree_4(gp), 18, 1, 6);
+        setEntitiesByTile(gp.objects, new OBJ_Tree_4(gp), 19, 2, 10);
+        setEntitiesByTile(gp.objects, new OBJ_Tree_4(gp), 20, 39, 4);*/
 
         // BUSH 1
         setEntitiesByTile(gp.objects, new OBJ_Bush_1(gp), 5, 25, 15);
@@ -57,7 +71,7 @@ public class EntityPlacer {
         // NATALIE
         setEntitiesByTile(gp.npc, new NPC_Natalie(gp), 1, 13, 12);
         // VIKI
-        setEntitiesByTile(gp.npc, new NPC_Viki(gp), 2, 14, 12);
+        setEntitiesByTile(gp.npc, new NPC_Viki(gp), 2, 29, 16);
     }
 
     private <T extends PositionKeeper> void setEntitiesByTile(T[] array, T ent, int index, int worldX, int worldY) {
