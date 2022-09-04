@@ -1,6 +1,7 @@
-package object;
+package object.obstacle;
 
 import main.GamePanel;
+import object.SuperObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,26 +10,24 @@ import java.util.Objects;
 
 import static main.GamePanel.TILE_SIZE;
 
-public class OBJ_Tree_1 extends SuperObject {
+public class OBJ_Trunk_1 extends SuperObject {
 
-    public OBJ_Tree_1(GamePanel gp) {
+    public OBJ_Trunk_1(GamePanel gp) {
         super(gp);
 
-        name = "Tree_1";
+        name = "Trunk_1";
         collision = true;
 
         scaleX = 1;
-        scaleY = 3;
+        scaleY = 1;
 
         width = TILE_SIZE * scaleX;
         height = TILE_SIZE * scaleY;
 
-        solidAreaDefaultY = 100;
-
-        solidArea = new Rectangle(0, 100, width, 35);
+        solidArea = new Rectangle(0, 100, width, 45);
 
         try {
-            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/park/objects/tree_1.png")));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/park/objects/trunk_1.png")));
             uTool.scaleImage(image, width, height);
         } catch (IOException e) {
             e.printStackTrace();

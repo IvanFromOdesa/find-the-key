@@ -4,7 +4,8 @@ import entity.NPC_Elvie;
 import entity.NPC_Monk;
 import entity.NPC_Natalie;
 import entity.NPC_Viki;
-import object.*;
+import object.building.BLD_Family_House;
+import object.obstacle.*;
 
 import static main.GamePanel.TILE_SIZE;
 
@@ -64,6 +65,9 @@ public class EntityPlacer {
 
         // TRUNK 1
         setEntitiesByTile(gp.objects, new OBJ_Trunk_1(gp), 14, 24, 5);
+
+        // FAMILY HOUSE
+        setEntitiesByTile(gp.objects, new BLD_Family_House(gp), 26, 1, 11);
     }
 
     public void setNpc() {

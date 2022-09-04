@@ -1,6 +1,7 @@
-package object;
+package object.obstacle;
 
 import main.GamePanel;
+import object.SuperObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,7 +10,7 @@ import java.util.Objects;
 
 import static main.GamePanel.TILE_SIZE;
 
-public class OBJ_Tree_2 extends SuperObject{
+public class OBJ_Tree_2 extends SuperObject {
 
     public OBJ_Tree_2(GamePanel gp) {
 

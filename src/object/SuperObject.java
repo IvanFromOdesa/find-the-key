@@ -32,7 +32,7 @@ public class SuperObject extends PositionKeeper {
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
 
-    UtilityTool uTool = new UtilityTool();
+    protected UtilityTool uTool = new UtilityTool();
     GamePanel gp;
 
     public SuperObject(GamePanel gp) {

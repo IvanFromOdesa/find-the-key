@@ -1,6 +1,7 @@
-package object;
+package object.obstacle;
 
 import main.GamePanel;
+import object.SuperObject;
 
 import javax.imageio.ImageIO;
 import java.awt.Rectangle;
