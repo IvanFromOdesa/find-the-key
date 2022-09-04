@@ -1,8 +1,10 @@
 package main;
 
-import main.GamePanel;
-
-import javax.swing.*;
+import javax.swing.JFrame;
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.io.IOException;
 
 public class Main {
@@ -16,6 +18,11 @@ public class Main {
         window.add(gamePanel);
 
         window.pack();
+
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Image img = toolkit.getImage("res\\cursors\\cursor.png");
+        Cursor cursor = toolkit.createCustomCursor(img, new Point(0, 0), "FCursor");
+        window.setCursor(cursor);
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);

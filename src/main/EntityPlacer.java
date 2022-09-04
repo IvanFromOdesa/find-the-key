@@ -1,5 +1,6 @@
 package main;
 
+import entity.NPC_Elvie;
 import entity.NPC_Monk;
 import entity.NPC_Natalie;
 import entity.NPC_Viki;
@@ -34,7 +35,7 @@ public class EntityPlacer {
         setEntitiesByTile(gp.objects, new OBJ_Tree_2(gp), 4, 29, 17);
 
         // TREE 3
-        setEntitiesByTile(gp.objects, new OBJ_Tree_3(gp), 16, 2, 21);
+        //setEntitiesByTile(gp.objects, new OBJ_Tree_3(gp), 16, 2, 21);
         setEntitiesByTile(gp.objects, new OBJ_Tree_3(gp), 17, 33, 20);
         setEntitiesByTile(gp.objects, new OBJ_Tree_3(gp), 21, 30, 7);
         setEntitiesByTile(gp.objects, new OBJ_Tree_3(gp), 22, 32, 7);
@@ -72,6 +73,8 @@ public class EntityPlacer {
         setEntitiesByTile(gp.npc, new NPC_Natalie(gp), 1, 13, 12);
         // VIKI
         setEntitiesByTile(gp.npc, new NPC_Viki(gp), 2, 29, 16);
+        // ELVIE
+        setEntitiesByTile(gp.npc, new NPC_Elvie(gp), 3, 14, 13);
     }
 
     private <T extends PositionKeeper> void setEntitiesByTile(T[] array, T ent, int index, int worldX, int worldY) {

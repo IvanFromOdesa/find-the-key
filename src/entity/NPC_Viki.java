@@ -29,11 +29,11 @@ public class NPC_Viki extends Entity {
         solidAreaDefaultX = 15;
         solidAreaDefaultY = 36;
 
-        getNPC_NatalieImage();
+        getNPC_VikiImage();
         setDialogue();
     }
 
-    public void getNPC_NatalieImage() {
+    public void getNPC_VikiImage() {
         stand = setup("viki_default");
         down1 = setup("viki_down_1");
         down2 = setup("viki_down_2");

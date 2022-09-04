@@ -23,10 +23,10 @@ public class OBJ_Tree_2 extends SuperObject{
         width = TILE_SIZE * scaleX;
         height = TILE_SIZE * scaleY;
 
-        solidAreaDefaultX = 20;
+        solidAreaDefaultX = 7;
         solidAreaDefaultY = 20;
 
-        solidArea = new Rectangle(20, 20, width - 30, height - 25);
+        solidArea = new Rectangle(20, 20, width - 17, height - 25);
 
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/park/objects/tree_2.png")));
