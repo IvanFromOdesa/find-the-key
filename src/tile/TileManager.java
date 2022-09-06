@@ -31,7 +31,7 @@ public class TileManager extends PositionKeeper {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[41]; // 41 types of tiles
+        tile = new Tile[44]; // 44 types of tiles
 
         mapTileNum = new int[MAX_WORLD_COLUMN][MAX_WORLD_ROW];
         getTileImage();
@@ -56,6 +56,11 @@ public class TileManager extends PositionKeeper {
         setup(38, "park", "grasses/grass_12", false);
         setup(39, "park", "grasses/grass_13", false);
         setup(40, "park", "grasses/grass_14", false);
+
+        // COBBLESTONE PATH
+        setup(41, "park", "cob_pathes/cob_path_1", false);
+        setup(42, "park", "cob_pathes/cob_path_2", false);
+        setup(43, "park", "cob_pathes/cob_path_3", false);
 
         // WATER
         // FILL

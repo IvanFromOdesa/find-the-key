@@ -5,9 +5,12 @@ import main.GamePanel;
 import main.PositionKeeper;
 import main.UtilityTool;
 
+import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 import static main.GamePanel.SCREEN_HEIGHT;
 import static main.GamePanel.SCREEN_WIDTH;
@@ -23,20 +26,38 @@ public class SuperObject extends PositionKeeper {
     protected String name;
 
     @Getter
-    protected boolean collision = false;
+    protected boolean collision;
 
     // OBJECT's WIDTH AND HEIGHT
     protected int scaleX, scaleY;
 
     public Rectangle solidArea;
-    public int solidAreaDefaultX = 0;
-    public int solidAreaDefaultY = 0;
+    public int solidAreaDefaultX;
+    public int solidAreaDefaultY;
 
     protected UtilityTool uTool = new UtilityTool();
     GamePanel gp;
 
-    public SuperObject(GamePanel gp) {
+    public SuperObject(GamePanel gp, boolean collision,
+                       int scaleX, int scaleY, int width, int height,
+                       int solidAreaDefaultX, int solidAreaDefaultY,
+                       Rectangle solidArea, String imagePath) {
         this.gp = gp;
+        this.collision = collision;
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+        this.width = width;
+        this.height = height;
+        this.solidAreaDefaultX = solidAreaDefaultX;
+        this.solidAreaDefaultY = solidAreaDefaultY;
+        this.solidArea = solidArea;
+
+        try {
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+            uTool.scaleImage(image, width, height);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

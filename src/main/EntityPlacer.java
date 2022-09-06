@@ -5,7 +5,15 @@ import entity.NPC_Monk;
 import entity.NPC_Natalie;
 import entity.NPC_Viki;
 import object.building.BLD_Family_House;
-import object.obstacle.*;
+import object.building.wooden_fence.*;
+import object.obstacle.bush.OBJ_Bush_1;
+import object.obstacle.bush.OBJ_Bush_2;
+import object.obstacle.bush.OBJ_Bush_3;
+import object.obstacle.rock.OBJ_Rock_1;
+import object.obstacle.tree.OBJ_Tree_1;
+import object.obstacle.tree.OBJ_Tree_2;
+import object.obstacle.tree.OBJ_Tree_3;
+import object.obstacle.tree.OBJ_Trunk_1;
 
 import static main.GamePanel.TILE_SIZE;
 
@@ -67,7 +75,27 @@ public class EntityPlacer {
         setEntitiesByTile(gp.objects, new OBJ_Trunk_1(gp), 14, 24, 5);
 
         // FAMILY HOUSE
-        setEntitiesByTile(gp.objects, new BLD_Family_House(gp), 26, 1, 11);
+        setEntitiesManually(gp.objects, new BLD_Family_House(gp), 26, 130, 495);
+
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_1(gp), 27, 60, 800);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_2(gp), 30, 32, 743);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_4(gp), 31, 32, 692);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_4(gp), 33, 32, 638);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_4(gp), 35, 32, 584);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_4(gp), 37, 32, 530);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_7(gp), 39, 32, 476);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_5(gp), 41, 60, 476);
+
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_1(gp), 28, 250, 800);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_3(gp), 29, 350, 743);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_4(gp), 32, 350, 692);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_4(gp), 34, 350, 638);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_4(gp), 36, 350, 584);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_4(gp), 38, 350, 530);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_4(gp), 40, 350, 476);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_5(gp), 42, 250, 476);
+        setEntitiesManually(gp.objects, new BLD_Wooden_Fence_6(gp), 43, 167, 473);
+
     }
 
     public void setNpc() {
