@@ -16,11 +16,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Random;
 
-import static main.GamePanel.SCREEN_HEIGHT;
-import static main.GamePanel.SCREEN_WIDTH;
-import static main.GamePanel.TILE_SIZE;
-import static main.GamePanel.WORLD_HEIGHT;
-import static main.GamePanel.WORLD_WIDTH;
+import static main.GamePanel.*;
 
 public abstract class Entity extends PositionKeeper {
 
@@ -32,6 +28,18 @@ public abstract class Entity extends PositionKeeper {
     private BufferedImage image;
     protected int spriteCounter = 0;
     protected int spriteNum = 1;
+
+    // INFO
+    protected String name;
+
+    @Getter
+    protected int maxLife;
+
+    @Getter
+    protected int currentLife;
+
+    @Setter
+    private boolean highlight;
 
     // MOVEMENT AREA
     protected int topBorder, bottomBorder, leftBorder, rightBorder;
@@ -58,11 +66,10 @@ public abstract class Entity extends PositionKeeper {
     private boolean collisionOnEntity = false;
 
     // COUNTER
-    private int messageCounter = 0;
+    private int messageCounter, infoCounter;
     protected int actionLockCounter;
 
     private String quote;
-
     UtilityTool uTool = new UtilityTool();
     Random random = new Random();
     Font font = uTool.setFont(20f);
@@ -76,6 +83,26 @@ public abstract class Entity extends PositionKeeper {
         this.gp = gp;
     }
 
+    public Entity(GamePanel gp, int width, int height, String direction, int speed,
+                  int topBorder, int bottomBorder, int leftBorder, int rightBorder,
+                  int solidAreaDefaultX, int solidAreaDefaultY,
+                  Rectangle solidArea, String imgPath, String name) {
+        this.gp = gp;
+        this.width = width;
+        this.height = height;
+        this.direction = direction;
+        this.speed = speed;
+        this.topBorder = topBorder;
+        this.bottomBorder = bottomBorder;
+        this.leftBorder = leftBorder;
+        this.rightBorder = rightBorder;
+        this.solidAreaDefaultX = solidAreaDefaultX;
+        this.solidAreaDefaultY = solidAreaDefaultY;
+        this.solidArea = solidArea;
+        this.imgPath = imgPath;
+        this.name = name;
+    }
+
     protected BufferedImage setup(String imageName) {
 
         UtilityTool uTool = new UtilityTool();
@@ -84,7 +111,7 @@ public abstract class Entity extends PositionKeeper {
         try{
             image = ImageIO.read(Objects.requireNonNull(
                     getClass().getResourceAsStream("/" + imgPath + imageName +".png")));
-            image = uTool.scaleImage(image, TILE_SIZE, TILE_SIZE);
+            image = uTool.scaleImage(image, width, height);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -216,9 +243,15 @@ public abstract class Entity extends PositionKeeper {
                 worldY + TILE_SIZE > gp.player.worldY - gp.player.screenY &&
                 worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
             chooseDirection();
-            g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+            g2.drawImage(image, screenX, screenY, null);
+
+            // DISPLAY COLLISION
+            /*g2.setColor(Color.RED);
+            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y,
+                    solidArea.width, solidArea.height);*/
 
             if(collisionOnEntity) displayQuotes(g2);
+            if(highlight) showInfo(g2);
         }
         // If player is around the edge, draw everything
         else if(gp.player.worldX < gp.player.screenX ||
@@ -226,9 +259,10 @@ public abstract class Entity extends PositionKeeper {
                 SCREEN_WIDTH - gp.player.screenX > WORLD_WIDTH - gp.player.worldX ||
                 SCREEN_HEIGHT - gp.player.screenY > WORLD_HEIGHT - gp.player.worldY) {
             chooseDirection();
-            g2.drawImage(image, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+            g2.drawImage(image, screenX, screenY, null);
 
             if(collisionOnEntity) displayQuotes(g2);
+            if(highlight) showInfo(g2);
         }
     }
 
@@ -243,6 +277,19 @@ public abstract class Entity extends PositionKeeper {
         if(messageCounter == 120){
             collisionOnEntity = false;
             messageCounter = 0;
+        }
+    }
+
+    protected void showInfo(Graphics2D g2) {
+        g2.setFont(font);
+        g2.setColor(Color.BLACK);
+        g2.drawString(name, (int) ((this.screenX + 24) -
+                (g2.getFontMetrics().getStringBounds(name, g2).getWidth()) / 2), this.screenY - 20);
+        infoCounter ++;
+
+        if(infoCounter == 240) {
+            highlight = false;
+            infoCounter = 0;
         }
     }
 

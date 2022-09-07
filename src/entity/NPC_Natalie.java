@@ -11,23 +11,11 @@ public class NPC_Natalie extends Entity {
     private final String[] DIALOGUES = new String[4];
 
     public NPC_Natalie(GamePanel gp) {
-        super(gp);
-
-        imgPath = "park/npc/natalie/";
-        width = TILE_SIZE;
-        height = TILE_SIZE;
-
-        direction = "stand";
-        speed = 2;
-
-        topBorder = TILE_SIZE * 10;
-        bottomBorder = TILE_SIZE * 14;
-        leftBorder = TILE_SIZE * 10;
-        rightBorder = TILE_SIZE * 14;
-
-        solidArea = new Rectangle(15, 36, 18, 12);
-        solidAreaDefaultX = 15;
-        solidAreaDefaultY = 36;
+        super(gp, TILE_SIZE, TILE_SIZE, "stand", 2,
+                480, 672, 480, 672,
+                15, 36,
+                new Rectangle(15, 36, 18, 12),
+                "park/npc/natalie/", "Natalie");
 
         getNPC_NatalieImage();
         setDialogue();

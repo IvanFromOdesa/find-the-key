@@ -26,7 +26,7 @@ public class Player extends Entity {
 
         this.keyH = keyH;
 
-        imgPath = "player/";
+        imgPath = "player/sprites/";
         width = TILE_SIZE;
         height = TILE_SIZE;
 
@@ -46,6 +46,8 @@ public class Player extends Entity {
         worldY = TILE_SIZE * 10;
         speed = 4;
         direction = "stand";
+        maxLife = 6;
+        currentLife = 6;
     }
 
     private void getPlayerImage() {

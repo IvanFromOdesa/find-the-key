@@ -2,7 +2,7 @@ package entity;
 
 import main.GamePanel;
 
-import java.awt.*;
+import java.awt.Rectangle;
 
 import static main.GamePanel.TILE_SIZE;
 
@@ -11,23 +11,12 @@ public class NPC_Elvie extends Entity {
     private final String[] DIALOGUES = new String[4];
 
     public NPC_Elvie(GamePanel gp) {
-        super(gp);
 
-        imgPath = "park/npc/elvie/";
-        width = TILE_SIZE;
-        height = TILE_SIZE;
-
-        direction = "stand";
-        speed = 2;
-
-        topBorder = TILE_SIZE * 10;
-        bottomBorder = TILE_SIZE * 15;
-        leftBorder = TILE_SIZE * 10;
-        rightBorder = TILE_SIZE * 15;
-
-        solidArea = new Rectangle(15, 36, 18, 12);
-        solidAreaDefaultX = 15;
-        solidAreaDefaultY = 36;
+        super(gp, TILE_SIZE, TILE_SIZE, "stand", 2,
+                480, 720, 480, 720,
+                15, 36,
+                new Rectangle(15, 36, 18, 12),
+                "park/npc/elvie/", "Elvie");
 
         getNPC_ElvieImage();
         setDialogue();

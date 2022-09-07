@@ -11,23 +11,11 @@ public class NPC_Monk extends Entity {
     private final String[] DIALOGUES = new String[4];
 
     public NPC_Monk(GamePanel gp) {
-        super(gp);
-
-        imgPath = "park/npc/monk/";
-        width = TILE_SIZE;
-        height = TILE_SIZE;
-
-        direction = "stand";
-        speed = 1;
-
-        topBorder = TILE_SIZE * 10;
-        bottomBorder = TILE_SIZE * 20;
-        leftBorder = TILE_SIZE * 10;
-        rightBorder = TILE_SIZE * 20;
-
-        solidArea = new Rectangle(15, 36, 18, 12);
-        solidAreaDefaultX = 15;
-        solidAreaDefaultY = 36;
+        super(gp, TILE_SIZE, TILE_SIZE, "stand", 1,
+                480, 960, 480, 960,
+                15, 36,
+                new Rectangle(15, 36, 18, 12),
+                "park/npc/monk/", "Monk");
 
         getNPC_MonkImage();
         setDialogue();

@@ -54,7 +54,7 @@ public class SuperObject extends PositionKeeper {
 
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
-            uTool.scaleImage(image, width, height);
+            image = uTool.scaleImage(image, width, height);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,7 +73,7 @@ public class SuperObject extends PositionKeeper {
                 worldX - TILE_SIZE < gp.player.worldX  + gp.player.screenX &&
                 worldY + TILE_SIZE * scaleY > gp.player.worldY - gp.player.screenY &&
                 worldY - TILE_SIZE < gp.player.worldY + gp.player.screenY) {
-            g2.drawImage(image, screenX, screenY, width, height, null);
+            g2.drawImage(image, screenX, screenY, null);
 
             // DISPLAY COLLISION
             /*g2.setColor(Color.RED);
@@ -84,7 +84,7 @@ public class SuperObject extends PositionKeeper {
                 gp.player.worldY < gp.player.screenY ||
                 SCREEN_WIDTH - gp.player.screenX > WORLD_WIDTH - gp.player.worldX ||
                 SCREEN_HEIGHT - gp.player.screenY > WORLD_HEIGHT - gp.player.worldY) {
-            g2.drawImage(image, screenX, screenY, width, height, null);
+            g2.drawImage(image, screenX, screenY, null);
         }
     }
 }

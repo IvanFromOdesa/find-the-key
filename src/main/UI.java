@@ -3,10 +3,14 @@ package main;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.imageio.ImageIO;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Objects;
 
 import static main.GamePanel.SCREEN_HEIGHT;
 import static main.GamePanel.SCREEN_WIDTH;
@@ -19,13 +23,21 @@ public class UI {
     Graphics2D g2;
     Font maruMonica;
 
+    // HUD
+    BufferedImage healthBar;
+    BufferedImage health;
+    BufferedImage heart;
+
+    UtilityTool uTool = new UtilityTool();
+
     @Getter
     @Setter
     private String currentDialogue = "";
 
     public UI(GamePanel gp) {
         this.gp = gp;
-        maruMonica = new UtilityTool().setFont(40f);
+        maruMonica = uTool.setFont(40f);
+        loadHUD();
     }
 
     public void draw(Graphics2D g2) {
@@ -37,7 +49,7 @@ public class UI {
 
         // PLAY STATE
         if(gp.gameState == gp.PLAY_STATE) {
-            // Some stuff
+            drawHUD();
         }
         // PAUSE STATE
         if(gp.gameState == gp.PAUSE_STATE) {
@@ -66,6 +78,35 @@ public class UI {
         for(String line : currentDialogue.split("\n")) {
             g2.drawString(line, x, y);
             y += 30;
+        }
+    }
+
+    private void drawHUD() {
+
+        double oneScale = (double) TILE_SIZE * 4 / gp.player.getMaxLife();
+        double hpBarValue = oneScale * gp.player.getCurrentLife();
+
+        g2.drawImage(healthBar, gp.player.screenX - 340, gp.player.screenY - 250, null);
+        g2.drawImage(health, gp.player.screenX - 340, gp.player.screenY - 250,
+                (int) hpBarValue, TILE_SIZE, null);
+        g2.drawImage(heart, gp.player.screenX - 361, gp.player.screenY - 262, null);
+    }
+
+    private void loadHUD() {
+        try {
+            healthBar = ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player/hud/health_bar.png")));
+            healthBar = uTool.scaleImage(healthBar, TILE_SIZE * 4, TILE_SIZE);
+
+            health = ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player/hud/health.png")));
+            health = uTool.scaleImage(health, TILE_SIZE * 4, TILE_SIZE);
+
+            heart = ImageIO.read(Objects.requireNonNull(
+                    getClass().getResourceAsStream("/player/hud/heart.png")));
+            heart = uTool.scaleImage(heart, 72, 72);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -11,6 +11,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -72,6 +74,22 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+
+        addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                if(gameState == PLAY_STATE) {
+                    for(Entity entity : npc) {
+                        if(entity != null) {
+                            if((e.getPoint().x > entity.screenX && e.getPoint().x < entity.screenX + TILE_SIZE) &&
+                                    (e.getPoint().y > entity.screenY && e.getPoint().y < entity.screenY + TILE_SIZE)) {
+                                entity.setHighlight(true);
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 
     // GAME LOOP

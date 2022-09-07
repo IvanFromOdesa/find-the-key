@@ -11,23 +11,11 @@ public class NPC_Viki extends Entity {
     private final String[] DIALOGUES = new String[4];
 
     public NPC_Viki(GamePanel gp) {
-        super(gp);
-
-        imgPath = "park/npc/viki/";
-        width = TILE_SIZE;
-        height = TILE_SIZE;
-
-        direction = "stand";
-        speed = 3;
-
-        topBorder = TILE_SIZE * 15;
-        bottomBorder = TILE_SIZE * 19;
-        leftBorder = TILE_SIZE * 28;
-        rightBorder = TILE_SIZE * 33;
-
-        solidArea = new Rectangle(15, 36, 18, 12);
-        solidAreaDefaultX = 15;
-        solidAreaDefaultY = 36;
+        super(gp, TILE_SIZE, TILE_SIZE, "stand", 3,
+                720, 912, 1344, 1584,
+                15, 36,
+                new Rectangle(15, 36, 18, 12),
+                "park/npc/viki/", "Viki");
 
         getNPC_VikiImage();
         setDialogue();
