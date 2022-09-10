@@ -11,7 +11,7 @@ public class OBJ_Rock_1 extends SuperObject {
         super(gp, true, 1, 1,
                 48, 48, 0, 0,
                 new Rectangle(0, 0, 48, 48),
-                "/park/objects/rock_1.png");
+                "/park/objects/rocks/rock_1.png");
 
         name = "Rock_1";
     }

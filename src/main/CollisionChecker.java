@@ -1,6 +1,7 @@
 package main;
 
 import entity.Entity;
+import object.weapon.projectile.Projectile;
 
 import static main.GamePanel.TILE_SIZE;
 
@@ -262,5 +263,28 @@ public class CollisionChecker {
         entity.getSolidArea().y = entity.getSolidAreaDefaultY();
         gp.player.getSolidArea().x = gp.player.getSolidAreaDefaultX();
         gp.player.getSolidArea().y = gp.player.getSolidAreaDefaultY();
+    }
+
+    public void checkPlayerProjectiles(Entity entity) {
+        for(Projectile projectile : gp.projectiles) {
+            if(projectile != null) {
+
+                entity.getSolidArea().x = entity.screenX + entity.getSolidArea().x;
+                entity.getSolidArea().y = entity.screenY + entity.getSolidArea().y;
+                projectile.solidArea.x = (int) (projectile.worldX + projectile.solidArea.x);
+                projectile.solidArea.y = (int) (projectile.worldY + projectile.solidArea.y);
+
+                if(projectile.solidArea.intersects(entity.getSolidArea())) {
+                    entity.setCurrentLife(entity.getCurrentLife() -
+                            (projectile.getDamage() + projectile.getGun().getDamage()));
+                    projectile.setAlive(false);
+                }
+
+                entity.getSolidArea().x = entity.getSolidAreaDefaultX();
+                entity.getSolidArea().y = entity.getSolidAreaDefaultY();
+                projectile.solidArea.x = projectile.solidAreaDefaultX;
+                projectile.solidArea.y = projectile.solidAreaDefaultY;
+            }
+        }
     }
 }

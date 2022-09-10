@@ -10,9 +10,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class UtilityTool {
+public final class UtilityTool {
 
-    public BufferedImage scaleImage(BufferedImage ogImage, int width, int height) {
+    public static BufferedImage scaleImage(BufferedImage ogImage, int width, int height) {
         BufferedImage scaledImage = new BufferedImage(width, height, ogImage.getType());
         Graphics2D g2 = scaledImage.createGraphics();
         g2.drawImage(ogImage, 0, 0, width, height, null);
@@ -21,7 +21,7 @@ public class UtilityTool {
         return scaledImage;
     }
 
-    public <T extends PositionKeeper> void adjustCamera(GamePanel gp, T t, int worldX, int worldY) {
+    public static  <T extends PositionKeeper> void adjustCamera(GamePanel gp, T t, int worldX, int worldY) {
         if(gp.player.worldX < gp.player.screenX) t.screenX = worldX;
         if(gp.player.worldY < gp.player.screenY) t.screenY = worldY;
         if(SCREEN_WIDTH - gp.player.screenX > WORLD_WIDTH - gp.player.worldX) t.screenX = SCREEN_WIDTH - (WORLD_WIDTH - worldX);
@@ -38,7 +38,7 @@ public class UtilityTool {
         return null;
     }
     
-    public void displayJVMSpecsUsage(Graphics2D g2) {
+    public static void displayJVMSpecsUsage(Graphics2D g2) {
 
         /* Total number of processors or cores available to the JVM */
         g2.drawString("Available processors (cores): " +
@@ -57,5 +57,35 @@ public class UtilityTool {
         /* Total memory currently available to the JVM */
         g2.drawString("Total memory available to JVM (mbs): " +
                 Runtime.getRuntime().totalMemory() / 1048576, 10, 520);
+    }
+
+    public static BufferedImage rotateImage(BufferedImage image, double angle) {
+
+        angle = Math.toRadians(angle);
+        double sin = Math.abs(Math.sin(angle)), cos = Math.abs(Math.cos(angle));
+        int width = image.getWidth(), height = image.getHeight();
+
+        int newWidth = (int) Math.floor(width * cos + height * sin),
+                newHeight = (int) Math.floor(height * cos + width * sin);
+
+        GraphicsConfiguration gconf = getDefaultConfiguration();
+        BufferedImage result = gconf.createCompatibleImage(newWidth, newHeight, Transparency.TRANSLUCENT);
+        Graphics2D g2= result.createGraphics();
+
+        g2.setRenderingHint(
+                RenderingHints.KEY_RENDERING,
+                RenderingHints.VALUE_RENDER_QUALITY);
+
+        g2.translate((newWidth - width) / 2, (newHeight - height) / 2);
+        g2.rotate(angle, width / 2.0, height / 2.0);
+        g2.drawRenderedImage(image, null);
+
+        return result;
+    }
+
+    private static GraphicsConfiguration getDefaultConfiguration() {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        return gd.getDefaultConfiguration();
     }
 }

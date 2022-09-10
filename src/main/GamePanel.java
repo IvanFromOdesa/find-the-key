@@ -3,6 +3,7 @@ package main;
 import entity.Entity;
 import entity.Player;
 import object.SuperObject;
+import object.weapon.projectile.Projectile;
 import tile.TileManager;
 
 import javax.swing.JPanel;
@@ -11,8 +12,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -41,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     // SYSTEM
     Thread gameThread;
     public KeyHandler keyH = new KeyHandler(this);
+    MouseHandler mouseH = new MouseHandler(this);
     SoundHandler music = new SoundHandler();
     SoundHandler se = new SoundHandler();
     TileManager tileM = new TileManager(this);
@@ -55,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyH);
     public SuperObject[] objects = new SuperObject[100];
     public Entity[] npc = new Entity[10];
+    public ArrayList<Projectile> projectiles = new ArrayList<>();
     ArrayList<PositionKeeper> entList = new ArrayList<>();
 
     private int timer;
@@ -73,23 +74,9 @@ public class GamePanel extends JPanel implements Runnable {
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
+        this.addMouseListener(mouseH);
+        this.addMouseMotionListener(mouseH);
         this.setFocusable(true);
-
-        addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                if(gameState == PLAY_STATE) {
-                    for(Entity entity : npc) {
-                        if(entity != null) {
-                            if((e.getPoint().x > entity.screenX && e.getPoint().x < entity.screenX + TILE_SIZE) &&
-                                    (e.getPoint().y > entity.screenY && e.getPoint().y < entity.screenY + TILE_SIZE)) {
-                                entity.setHighlight(true);
-                            }
-                        }
-                    }
-                }
-            }
-        });
     }
 
     // GAME LOOP
@@ -142,6 +129,10 @@ public class GamePanel extends JPanel implements Runnable {
             // NPCs
             for(Entity entity : npc) {if(entity != null) entity.update();}
 
+            // PROJECTILES
+            for(Projectile projectile : projectiles) {if(projectile != null) projectile.update();}
+            projectiles.removeIf(p -> !p.isAlive());
+
             // RESETTING PRESSED BUTTONS
             timer++;
             if(timer == 120) {
@@ -172,6 +163,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         for (SuperObject object : objects) {if (object != null) entList.add(object);}
 
+        for(Projectile projectile : projectiles) {if (projectile != null) entList.add(projectile);}
+
         // SORTING ENTITIES BY THEIR POSITION
         entList.sort(Comparator.comparingInt(o -> o.worldY + o.height));
 
@@ -190,7 +183,7 @@ public class GamePanel extends JPanel implements Runnable {
             g2.setFont(font);
             g2.drawString("Draw Time: " + passed + " msc", 10, 400);
             g2.drawString("Player WX: " + player.worldX + ", WY: " + player.worldY, 10, 30);
-            uTool.displayJVMSpecsUsage(g2);
+            UtilityTool.displayJVMSpecsUsage(g2);
         }
 
         g2.dispose();

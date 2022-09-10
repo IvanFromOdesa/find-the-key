@@ -11,7 +11,7 @@ public class OBJ_Trunk_1 extends SuperObject {
         super(gp, true, 1, 1,
                 48, 48, 0, 0,
                 new Rectangle(0, 100, 48, 45),
-                "/park/objects/trunk_1.png");
+                "/park/objects/trees/trunk_1.png");
 
         name = "Trunk_1";
     }

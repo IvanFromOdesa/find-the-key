@@ -24,6 +24,7 @@ public abstract class Entity extends PositionKeeper {
 
     // ENTITY SPRITES
     protected BufferedImage stand, up1, up2, down1, down2, left1, left2, right1, right2;
+    protected BufferedImage attackUp, attackDown, attackLeft, attackRight;
     protected String imgPath;
     private BufferedImage image;
     protected int spriteCounter = 0;
@@ -36,6 +37,7 @@ public abstract class Entity extends PositionKeeper {
     protected int maxLife;
 
     @Getter
+    @Setter
     protected int currentLife;
 
     @Setter
@@ -70,20 +72,19 @@ public abstract class Entity extends PositionKeeper {
     protected int actionLockCounter;
 
     private String quote;
-    UtilityTool uTool = new UtilityTool();
     Random random = new Random();
-    Font font = uTool.setFont(20f);
+    Font font = new UtilityTool().setFont(20f);
 
     public final String[] QUOTES = {"Sorry!", "I'm sorry!", "Watch where you going",
                                     "You blind?", "I'm really sorry for that",
                                     "I keep my eye on you",
                                     "Oh, that hurts...", "Oops..."};
 
-    public Entity(GamePanel gp) {
+    protected Entity(GamePanel gp) {
         this.gp = gp;
     }
 
-    public Entity(GamePanel gp, int width, int height, String direction, int speed,
+    protected Entity(GamePanel gp, int width, int height, String direction, int speed,
                   int topBorder, int bottomBorder, int leftBorder, int rightBorder,
                   int solidAreaDefaultX, int solidAreaDefaultY,
                   Rectangle solidArea, String imgPath, String name) {
@@ -105,13 +106,12 @@ public abstract class Entity extends PositionKeeper {
 
     protected BufferedImage setup(String imageName) {
 
-        UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
 
         try{
             image = ImageIO.read(Objects.requireNonNull(
                     getClass().getResourceAsStream("/" + imgPath + imageName +".png")));
-            image = uTool.scaleImage(image, width, height);
+            image = UtilityTool.scaleImage(image, width, height);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -150,6 +150,7 @@ public abstract class Entity extends PositionKeeper {
         gp.cChecker.checkObject(this, false);
         gp.cChecker.checkPlayer(this);
         gp.cChecker.checkEntity(this, gp.npc);
+        gp.cChecker.checkPlayerProjectiles(this);
 
         if(!isStopped) moveEntity();
 
@@ -236,7 +237,7 @@ public abstract class Entity extends PositionKeeper {
         screenY = worldY - gp.player.worldY + gp.player.screenY;
 
         // STOPPING THE CAMERA
-        uTool.adjustCamera(gp, this, worldX, worldY);
+        UtilityTool.adjustCamera(gp, this, worldX, worldY);
 
         if (worldX + TILE_SIZE > gp.player.worldX - gp.player.screenX &&
                 worldX - TILE_SIZE < gp.player.worldX  + gp.player.screenX &&
@@ -267,11 +268,7 @@ public abstract class Entity extends PositionKeeper {
     }
 
     protected void displayQuotes(Graphics2D g2) {
-        g2.setFont(font);
-        g2.setColor(Color.WHITE);
-
-        g2.drawString(quote, (int) ((this.screenX + 24) -
-                (g2.getFontMetrics().getStringBounds(quote, g2).getWidth()) / 2), this.screenY - 5);
+        setUpScreenText(g2, Color.WHITE, quote, this.screenY - 5);
         messageCounter++;
 
         if(messageCounter == 120){
@@ -281,16 +278,23 @@ public abstract class Entity extends PositionKeeper {
     }
 
     protected void showInfo(Graphics2D g2) {
-        g2.setFont(font);
-        g2.setColor(Color.BLACK);
-        g2.drawString(name, (int) ((this.screenX + 24) -
-                (g2.getFontMetrics().getStringBounds(name, g2).getWidth()) / 2), this.screenY - 20);
+        setUpScreenText(g2, Color.BLACK, name + " " + currentLife + "/" + maxLife,
+                this.screenY - 20);
         infoCounter ++;
 
         if(infoCounter == 240) {
             highlight = false;
             infoCounter = 0;
         }
+    }
+
+    private void setUpScreenText(Graphics2D g2, Color textColor, String text, int vertPos) {
+        g2.setFont(font);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 16f));
+        g2.setColor(textColor);
+
+        g2.drawString(text, (int) ((this.screenX + 24) -
+                (g2.getFontMetrics().getStringBounds(text, g2).getWidth()) / 2), vertPos);
     }
 
     private void chooseDirection() {

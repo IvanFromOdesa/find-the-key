@@ -11,7 +11,7 @@ public class OBJ_Bush_3 extends SuperObject {
         super(gp, true, 1, 1,
                 48, 48, 0, 0,
                 new Rectangle(0, 0, 48, 48),
-                "/park/objects/bush_3.png");
+                "/park/objects/bushes/bush_3.png");
 
         name = "Bush_3";
     }

@@ -27,8 +27,6 @@ public class TileManager extends PositionKeeper {
     @Getter
     int[][] mapTileNum;
 
-    UtilityTool uTool = new UtilityTool();
-
     public TileManager(GamePanel gp) {
         this.gp = gp;
         tile = new Tile[44]; // 44 types of tiles
@@ -138,7 +136,7 @@ public class TileManager extends PositionKeeper {
             tile[index] = new Tile();
             tile[index].setImage(ImageIO.read(Objects.requireNonNull(
                     getClass().getResourceAsStream("/" + location + "/tiles/" + imagePath + ".png"))));
-            tile[index].setImage(uTool.scaleImage(tile[index].getImage(), TILE_SIZE, TILE_SIZE));
+            tile[index].setImage(UtilityTool.scaleImage(tile[index].getImage(), TILE_SIZE, TILE_SIZE));
             tile[index].setCollision(collision);
 
         } catch (IOException e) {
@@ -199,7 +197,7 @@ public class TileManager extends PositionKeeper {
            screenY = worldY - gp.player.worldY + gp.player.screenY;
 
            // STOP MOVING THE CAMERA AT THE EDGE
-           uTool.adjustCamera(gp, this, worldX, worldY);
+           UtilityTool.adjustCamera(gp, this, worldX, worldY);
 
            if (worldX + TILE_SIZE > gp.player.worldX - gp.player.screenX &&
                 worldX - TILE_SIZE < gp.player.worldX  + gp.player.screenX &&

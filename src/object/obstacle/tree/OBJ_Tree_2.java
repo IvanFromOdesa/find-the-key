@@ -12,7 +12,7 @@ public class OBJ_Tree_2 extends SuperObject {
         super(gp, true, 3, 3,
                 144, 144, 7, 20,
                 new Rectangle(20, 20, 127, 119),
-                "/park/objects/tree_2.png");
+                "/park/objects/trees/tree_2.png");
         name = "Tree_3";
     }
 }

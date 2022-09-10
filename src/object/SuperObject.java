@@ -35,10 +35,9 @@ public class SuperObject extends PositionKeeper {
     public int solidAreaDefaultX;
     public int solidAreaDefaultY;
 
-    protected UtilityTool uTool = new UtilityTool();
-    GamePanel gp;
+    protected GamePanel gp;
 
-    public SuperObject(GamePanel gp, boolean collision,
+    protected SuperObject(GamePanel gp, boolean collision,
                        int scaleX, int scaleY, int width, int height,
                        int solidAreaDefaultX, int solidAreaDefaultY,
                        Rectangle solidArea, String imagePath) {
@@ -52,9 +51,22 @@ public class SuperObject extends PositionKeeper {
         this.solidAreaDefaultY = solidAreaDefaultY;
         this.solidArea = solidArea;
 
+        loadImage(imagePath);
+    }
+
+    protected SuperObject(GamePanel gp, int width, int height,
+                       String imagePath) {
+        this.gp = gp;
+        this.width = width;
+        this.height = height;
+
+        loadImage(imagePath);
+    }
+
+    private void loadImage(String imagePath) {
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
-            image = uTool.scaleImage(image, width, height);
+            image = UtilityTool.scaleImage(image, width, height);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,7 +79,7 @@ public class SuperObject extends PositionKeeper {
         screenY = worldY - gp.player.worldY + gp.player.screenY;
 
         // STOPPING THE CAMERA
-        uTool.adjustCamera(gp, this, worldX, worldY);
+        UtilityTool.adjustCamera(gp, this, worldX, worldY);
 
         if (worldX + TILE_SIZE * scaleX > gp.player.worldX - gp.player.screenX &&
                 worldX - TILE_SIZE < gp.player.worldX  + gp.player.screenX &&

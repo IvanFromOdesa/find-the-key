@@ -10,10 +10,7 @@ import object.obstacle.bush.OBJ_Bush_1;
 import object.obstacle.bush.OBJ_Bush_2;
 import object.obstacle.bush.OBJ_Bush_3;
 import object.obstacle.rock.OBJ_Rock_1;
-import object.obstacle.tree.OBJ_Tree_1;
-import object.obstacle.tree.OBJ_Tree_2;
-import object.obstacle.tree.OBJ_Tree_3;
-import object.obstacle.tree.OBJ_Trunk_1;
+import object.obstacle.tree.*;
 
 import static main.GamePanel.TILE_SIZE;
 
@@ -96,6 +93,8 @@ public class EntityPlacer {
         setEntitiesManually(gp.objects, new BLD_Wooden_Fence_5(gp), 42, 250, 476);
         setEntitiesManually(gp.objects, new BLD_Wooden_Fence_6(gp), 43, 167, 473);
 
+        // CHERRY TREE
+        setEntitiesManually(gp.objects, new OBJ_Tree_Cherry(gp), 44, 65, 415);
     }
 
     public void setNpc() {

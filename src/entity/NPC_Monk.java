@@ -17,6 +17,9 @@ public class NPC_Monk extends Entity {
                 new Rectangle(15, 36, 18, 12),
                 "park/npc/monk/", "Monk");
 
+        maxLife = 110;
+        currentLife = maxLife;
+
         getNPC_MonkImage();
         setDialogue();
     }

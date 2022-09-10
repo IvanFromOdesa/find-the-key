@@ -1,10 +1,17 @@
 package entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import main.GamePanel;
 import main.KeyHandler;
+import main.UtilityTool;
+import object.weapon.projectile.PRJ_Bullet;
+import object.weapon.projectile.Projectile;
+import object.weapon.gun.WPN_Gun_Virtue;
+import object.weapon.Weapon;
 
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import static main.GamePanel.*;
@@ -13,12 +20,27 @@ public class Player extends Entity {
 
     KeyHandler keyH;
 
-    public final int screenX;
-    public final int screenY;
+    public final int screenX, screenY;
+
+    @Getter
+    private int adjustedX, adjustedY;
 
     private BufferedImage right3, left3;
     private int spriteCounterSide = 0;
     private int spriteNumSide = 1;
+
+    @Getter
+    @Setter
+    private boolean attacking;
+
+    @Getter
+    private Weapon gun;
+
+    @Getter
+    private Projectile ammo;
+
+    @Setter
+    private double rotateGunAngle;
 
     public Player (GamePanel gp, KeyHandler keyH) {
 
@@ -30,38 +52,52 @@ public class Player extends Entity {
         width = TILE_SIZE;
         height = TILE_SIZE;
 
-        screenX = SCREEN_WIDTH / 2 - TILE_SIZE / 2;
-        screenY = SCREEN_HEIGHT / 2 - TILE_SIZE / 2;
+        screenX = SCREEN_WIDTH / 2 - TILE_SIZE / 2; // 360
+        screenY = SCREEN_HEIGHT / 2 - TILE_SIZE / 2; // 264
 
         solidArea = new Rectangle(15, 36, 18, 12);
         solidAreaDefaultX = 15;
         solidAreaDefaultY = 36;
 
         setDefaultValues();
-        getPlayerImage();
+        getPlayerMoveImages();
+        getPlayerAttackImages();
     }
 
     public void setDefaultValues() {
+        // POSITION
         worldX = TILE_SIZE * 16;
         worldY = TILE_SIZE * 10;
+
+        // SPEED
         speed = 4;
         direction = "stand";
-        maxLife = 6;
-        currentLife = 6;
+
+        // LIFE
+        maxLife = 100;
+        currentLife = maxLife;
+
+        // INVENTORY
+        gun = new WPN_Gun_Virtue(gp);
+        ammo = new PRJ_Bullet(gp, gun);
     }
 
-    private void getPlayerImage() {
-        stand = setup("Vita");
-        down1 = setup("Vita_down1");
-        down2 = setup("Vita_down2");
-        up1 = setup("Vita_up1");
-        up2 = setup("Vita_up2");
-        right1 = setup("Vita_right1");
-        right2 = setup("Vita_right2");
-        right3 = setup("Vita_right3");
-        left1 = setup("Vita_left1");
-        left2 = setup("Vita_left2");
-        left3 = setup("Vita_left3");
+    private void getPlayerMoveImages() {
+        stand = setup("move/Vita");
+        down1 = setup("move/Vita_down1");
+        down2 = setup("move/Vita_down2");
+        up1 = setup("move/Vita_up1");
+        up2 = setup("move/Vita_up2");
+        right1 = setup("move/Vita_right1");
+        right2 = setup("move/Vita_right2");
+        right3 = setup("move/Vita_right3");
+        left1 = setup("move/Vita_left1");
+        left2 = setup("move/Vita_left2");
+        left3 = setup("move/Vita_left3");
+    }
+
+    private void getPlayerAttackImages() {
+        attackDown = setup("attack/Vita_attack_down");
     }
 
     @Override
@@ -96,6 +132,7 @@ public class Player extends Entity {
             else if (spriteNumSide == 3) spriteNumSide = 1;
             spriteCounterSide = 0;
         }
+
     }
 
     // FOR INTERACTIVE OBJECTS
@@ -109,7 +146,14 @@ public class Player extends Entity {
 
         switch (direction) {
             case "stand":
-                image = stand;
+                if(!attacking) image = stand;
+                if(attacking) {
+                    if(rotateGunAngle > 14.5 && rotateGunAngle < 15.5) image = right1;
+                    else if(rotateGunAngle < 12.2 ||
+                            (rotateGunAngle < 18.5 && rotateGunAngle > 17.6)) image = left1;
+                    else if(rotateGunAngle <= 14.5 && rotateGunAngle >= 12.2) image = up1;
+                    else image = attackDown;
+                }
                 break;
             case "down":
                 if(spriteNum == 1) image = down1;
@@ -139,11 +183,45 @@ public class Player extends Entity {
         if(SCREEN_WIDTH - screenX > WORLD_WIDTH - worldX) x = SCREEN_WIDTH - (WORLD_WIDTH - worldX);
         if(SCREEN_HEIGHT - screenY > WORLD_HEIGHT - worldY) y = SCREEN_HEIGHT - (WORLD_HEIGHT - worldY);
 
-        g2.drawImage(image, x, y, null);
+        adjustedX = x;
+        adjustedY = y;
+
+        if(!attacking) g2.drawImage(image, x, y, null);
+        if(attacking) drawAttack(g2, image, x, y);
+
 
         // DISPLAY COLLISION
         /*g2.setColor(Color.RED);
         g2.drawRect(screenX + getSolidArea().x, screenY + getSolidArea().y,
                 getSolidArea().width, getSolidArea().height);*/
+    }
+
+    private void drawAttack(Graphics2D g2, BufferedImage image, int x, int y) {
+        if(image == up1) {
+            drawWeapon(g2, gun.getWeaponImage(), x + 6, y + 6);
+            g2.drawImage(image, x, y, null);
+        }
+        else {
+            g2.drawImage(image, x, y, null);
+            drawWeapon(g2, gun.getWeaponImage(), x + 6, y + 6);
+        }
+    }
+
+    private void drawWeapon(Graphics2D g2, BufferedImage image, int posX, int posY) {
+
+        g2.setRenderingHint(
+                RenderingHints.KEY_RENDERING,
+                RenderingHints.VALUE_RENDER_QUALITY);
+
+        int cx = 24;
+        int cy = 24;
+
+        AffineTransform oldAT = g2.getTransform();
+
+        g2.translate(cx + posX, cy + posY);
+        g2.rotate(rotateGunAngle);
+        g2.translate(-cx, -cy);
+        g2.drawImage(image, 0, 0, null);
+        g2.setTransform(oldAT);
     }
 }

@@ -17,6 +17,9 @@ public class NPC_Natalie extends Entity {
                 new Rectangle(15, 36, 18, 12),
                 "park/npc/natalie/", "Natalie");
 
+        maxLife = 100;
+        currentLife = maxLife;
+
         getNPC_NatalieImage();
         setDialogue();
     }

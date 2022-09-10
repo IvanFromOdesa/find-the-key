@@ -11,7 +11,7 @@ public class OBJ_Tree_4 extends SuperObject {
         super(gp, true, 2, 4,
                 96, 156, 23, 118,
                 new Rectangle(0, 100, 50, 30),
-                "/park/objects/tree_4.png");
+                "/park/objects/trees/tree_4.png");
 
         name = "Tree_4";
     }

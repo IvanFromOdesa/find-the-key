@@ -18,6 +18,9 @@ public class NPC_Elvie extends Entity {
                 new Rectangle(15, 36, 18, 12),
                 "park/npc/elvie/", "Elvie");
 
+        maxLife = 180;
+        currentLife = maxLife;
+
         getNPC_ElvieImage();
         setDialogue();
     }

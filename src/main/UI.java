@@ -83,12 +83,17 @@ public class UI {
 
     private void drawHUD() {
 
-        double oneScale = (double) TILE_SIZE * 4 / gp.player.getMaxLife();
+        double oneScale = (double) 180 / gp.player.getMaxLife();
         double hpBarValue = oneScale * gp.player.getCurrentLife();
 
-        g2.drawImage(healthBar, gp.player.screenX - 340, gp.player.screenY - 250, null);
-        g2.drawImage(health, gp.player.screenX - 340, gp.player.screenY - 250,
-                (int) hpBarValue, TILE_SIZE, null);
+        g2.drawImage(healthBar, 20, 14, null);
+        g2.drawImage(health, 26, 14, (int) hpBarValue, TILE_SIZE, null);
+
+        String lifeInfo = gp.player.getCurrentLife() + " / " + gp.player.getMaxLife();
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 26f));
+        g2.drawString(lifeInfo,(TILE_SIZE * 2 + 20) -  (int) (g2.getFontMetrics()
+                .getStringBounds(lifeInfo, g2).getWidth() / 2), 48);
+
         g2.drawImage(heart, gp.player.screenX - 361, gp.player.screenY - 262, null);
     }
 
@@ -96,15 +101,15 @@ public class UI {
         try {
             healthBar = ImageIO.read(Objects.requireNonNull(
                     getClass().getResourceAsStream("/player/hud/health_bar.png")));
-            healthBar = uTool.scaleImage(healthBar, TILE_SIZE * 4, TILE_SIZE);
+            healthBar = UtilityTool.scaleImage(healthBar, TILE_SIZE * 4, TILE_SIZE);
 
             health = ImageIO.read(Objects.requireNonNull(
                     getClass().getResourceAsStream("/player/hud/health.png")));
-            health = uTool.scaleImage(health, TILE_SIZE * 4, TILE_SIZE);
+            health = UtilityTool.scaleImage(health, 180, TILE_SIZE);
 
             heart = ImageIO.read(Objects.requireNonNull(
                     getClass().getResourceAsStream("/player/hud/heart.png")));
-            heart = uTool.scaleImage(heart, 72, 72);
+            heart = UtilityTool.scaleImage(heart, 72, 72);
         } catch (IOException e) {
             e.printStackTrace();
         }

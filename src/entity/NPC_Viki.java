@@ -17,6 +17,9 @@ public class NPC_Viki extends Entity {
                 new Rectangle(15, 36, 18, 12),
                 "park/npc/viki/", "Viki");
 
+        maxLife = 70;
+        currentLife = maxLife;
+
         getNPC_VikiImage();
         setDialogue();
     }
