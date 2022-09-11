@@ -4,14 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 import main.GamePanel;
 import main.KeyHandler;
-import main.UtilityTool;
-import object.weapon.projectile.PRJ_Bullet;
+import object.weapon.projectile.PRJ_Pink_Fireball;
 import object.weapon.projectile.Projectile;
-import object.weapon.gun.WPN_Gun_Virtue;
+import object.weapon.gun.WPN_Staff_Virtue;
 import object.weapon.Weapon;
 
-import java.awt.*;
-import java.awt.geom.AffineTransform;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import static main.GamePanel.*;
@@ -38,9 +37,6 @@ public class Player extends Entity {
 
     @Getter
     private Projectile ammo;
-
-    @Setter
-    private double rotateGunAngle;
 
     public Player (GamePanel gp, KeyHandler keyH) {
 
@@ -78,8 +74,8 @@ public class Player extends Entity {
         currentLife = maxLife;
 
         // INVENTORY
-        gun = new WPN_Gun_Virtue(gp);
-        ammo = new PRJ_Bullet(gp, gun);
+        gun = new WPN_Staff_Virtue(gp);
+        ammo = new PRJ_Pink_Fireball(gp, gun);
     }
 
     private void getPlayerMoveImages() {
@@ -98,16 +94,19 @@ public class Player extends Entity {
 
     private void getPlayerAttackImages() {
         attackDown = setup("attack/Vita_attack_down");
+        attackUp = setup("attack/Vita_attack_up");
     }
 
     @Override
     public void update() {
 
-        if(keyH.upPressed) direction = "up";
-        else if(keyH.downPressed) direction = "down";
-        else if(keyH.leftPressed) direction = "left";
-        else if(keyH.rightPressed) direction = "right";
-        else direction = "stand";
+        if(!attacking) {
+            if(keyH.upPressed) direction = "up";
+            else if(keyH.downPressed) direction = "down";
+            else if(keyH.leftPressed) direction = "left";
+            else if(keyH.rightPressed) direction = "right";
+            else direction = "stand";
+        }
 
         // CHECK TILE COLLISION
         collisionOn = false;
@@ -147,13 +146,7 @@ public class Player extends Entity {
         switch (direction) {
             case "stand":
                 if(!attacking) image = stand;
-                if(attacking) {
-                    if(rotateGunAngle > 14.5 && rotateGunAngle < 15.5) image = right1;
-                    else if(rotateGunAngle < 12.2 ||
-                            (rotateGunAngle < 18.5 && rotateGunAngle > 17.6)) image = left1;
-                    else if(rotateGunAngle <= 14.5 && rotateGunAngle >= 12.2) image = up1;
-                    else image = attackDown;
-                }
+                else image = attackDown;
                 break;
             case "down":
                 if(spriteNum == 1) image = down1;
@@ -189,7 +182,6 @@ public class Player extends Entity {
         if(!attacking) g2.drawImage(image, x, y, null);
         if(attacking) drawAttack(g2, image, x, y);
 
-
         // DISPLAY COLLISION
         /*g2.setColor(Color.RED);
         g2.drawRect(screenX + getSolidArea().x, screenY + getSolidArea().y,
@@ -197,31 +189,7 @@ public class Player extends Entity {
     }
 
     private void drawAttack(Graphics2D g2, BufferedImage image, int x, int y) {
-        if(image == up1) {
-            drawWeapon(g2, gun.getWeaponImage(), x + 6, y + 6);
-            g2.drawImage(image, x, y, null);
-        }
-        else {
-            g2.drawImage(image, x, y, null);
-            drawWeapon(g2, gun.getWeaponImage(), x + 6, y + 6);
-        }
-    }
-
-    private void drawWeapon(Graphics2D g2, BufferedImage image, int posX, int posY) {
-
-        g2.setRenderingHint(
-                RenderingHints.KEY_RENDERING,
-                RenderingHints.VALUE_RENDER_QUALITY);
-
-        int cx = 24;
-        int cy = 24;
-
-        AffineTransform oldAT = g2.getTransform();
-
-        g2.translate(cx + posX, cy + posY);
-        g2.rotate(rotateGunAngle);
-        g2.translate(-cx, -cy);
-        g2.drawImage(image, 0, 0, null);
-        g2.setTransform(oldAT);
+        g2.drawImage(image, x, y, null);
+        g2.drawImage(gun.getWeaponImage(), x, y - 10, null);
     }
 }

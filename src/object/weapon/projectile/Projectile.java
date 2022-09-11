@@ -1,20 +1,18 @@
 package object.weapon.projectile;
 
 import entity.Entity;
-import entity.Player;
 import lombok.Getter;
 import lombok.Setter;
 import main.GamePanel;
+import main.UtilityTool;
 import object.SuperObject;
 import object.weapon.Weapon;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-
-import static main.GamePanel.SCREEN_HEIGHT;
-import static main.GamePanel.SCREEN_WIDTH;
 
 public abstract class Projectile extends SuperObject {
 
@@ -22,7 +20,7 @@ public abstract class Projectile extends SuperObject {
     private final BufferedImage projectileImage;
 
     public double worldX, worldY;
-    public double defaultWorldX, defaultWorldY;
+
     @Getter
     private final Weapon gun;
 
@@ -33,9 +31,14 @@ public abstract class Projectile extends SuperObject {
     @Getter
     @Setter
     private boolean alive;
+    private int life;
+    protected int maxLife;
 
     @Setter
     private double dx, dy;
+
+    @Setter
+    private double rotateAngle;
     Entity user;
 
     protected Projectile(GamePanel gp, int width, int height,
@@ -52,23 +55,16 @@ public abstract class Projectile extends SuperObject {
         this.worldX = worldX;
         this.worldY = worldY;
 
-        defaultWorldX = worldX;
-        defaultWorldY = worldY;
-
         this.alive = alive;
         this.user = user;
+        this.life = this.maxLife;
     }
 
     public void update() {
         if (alive) tick();
 
-        if (user instanceof Player) {
-            if (worldX > SCREEN_WIDTH || worldY > SCREEN_HEIGHT || worldX <= 0 || worldY <= 0) {
-                alive = false;
-                worldX = defaultWorldX;
-                worldY = defaultWorldY;
-            }
-        }
+        life--;
+        if(life <= 0) alive = false;
     }
 
     @Override
@@ -78,7 +74,21 @@ public abstract class Projectile extends SuperObject {
                 RenderingHints.KEY_RENDERING,
                 RenderingHints.VALUE_RENDER_QUALITY);
 
-        g2.drawImage(projectileImage, (int) worldX, (int) worldY, null);
+        screenX = (int) (worldX - gp.player.worldX + gp.player.screenX);
+        screenY = (int) (worldY - gp.player.worldY + gp.player.screenY);
+
+        UtilityTool.adjustCamera(gp, this, (int) worldX, (int) worldY);
+
+        int cx = projectileImage.getWidth() / 2;
+        int cy = projectileImage.getHeight() / 2;
+
+        AffineTransform oldAT = g2.getTransform();
+
+        g2.translate(cx + screenX, cy + screenY);
+        g2.rotate(rotateAngle);
+        g2.translate(-cx, -cy);
+        g2.drawImage(projectileImage, 0, 0, null);
+        g2.setTransform(oldAT);
 
         // COLLISION
         /*g2.setColor(Color.RED);

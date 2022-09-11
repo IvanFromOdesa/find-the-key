@@ -265,12 +265,12 @@ public class CollisionChecker {
         gp.player.getSolidArea().y = gp.player.getSolidAreaDefaultY();
     }
 
-    public void checkPlayerProjectiles(Entity entity) {
+    public void checkProjectiles(Entity entity) {
         for(Projectile projectile : gp.projectiles) {
             if(projectile != null) {
 
-                entity.getSolidArea().x = entity.screenX + entity.getSolidArea().x;
-                entity.getSolidArea().y = entity.screenY + entity.getSolidArea().y;
+                entity.getSolidArea().x = entity.worldX + entity.getSolidArea().x;
+                entity.getSolidArea().y = entity.worldY + entity.getSolidArea().y;
                 projectile.solidArea.x = (int) (projectile.worldX + projectile.solidArea.x);
                 projectile.solidArea.y = (int) (projectile.worldY + projectile.solidArea.y);
 

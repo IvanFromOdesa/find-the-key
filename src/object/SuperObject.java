@@ -63,7 +63,7 @@ public class SuperObject extends PositionKeeper {
         loadImage(imagePath);
     }
 
-    private void loadImage(String imagePath) {
+    protected void loadImage(String imagePath) {
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
             image = UtilityTool.scaleImage(image, width, height);

@@ -17,10 +17,10 @@ public abstract class Weapon extends SuperObject {
     @Getter
     protected boolean ranged;
 
-    protected Weapon(GamePanel gp, int width, int height, String imagePath) {
+    protected Weapon(GamePanel gp, int width, int height, boolean collision, String imagePath) {
         super(gp, width, height, imagePath);
 
-        collision = true;
+        this.collision = collision;
         weaponImage = image;
     }
 

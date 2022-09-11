@@ -81,26 +81,27 @@ public class MouseHandler extends JFrame implements MouseListener, MouseMotionLi
         return Math.atan2(dy, dx);
     }
 
-    private double get_dx(MouseEvent e, double x) {
-        return (double) e.getX() - x;
-    }
-
-    private double get_dy(MouseEvent e, double y) {
-        return (double) e.getY() - y;
-    }
-
     private void setPlayerAttack(MouseEvent e) {
 
         if(gp.player.getGun().isRanged()) {
-            gp.player.getAmmo().setProjectile(gp.player.getAdjustedX() + 34,
-                    gp.player.getAdjustedY() + 24, true, gp.player);
-            gp.projectiles.add(gp.player.getAmmo());
+            if((e.getX() > gp.player.getAdjustedX() + TILE_SIZE
+                    || e.getY() > gp.player.getAdjustedY() + TILE_SIZE) ||
+                    (e.getX() < gp.player.getAdjustedX() - TILE_SIZE ||
+                            e.getY() < gp.player.getAdjustedY() - TILE_SIZE)) {
 
-            gp.player.getAmmo().setDx(get_dx(e, gp.player.getAmmo().worldX));
-            gp.player.getAmmo().setDy(get_dy(e, gp.player.getAmmo().worldY));
+                gp.player.getAmmo().setProjectile(gp.player.worldX,
+                        gp.player.worldY, true, gp.player);
 
-            gp.player.setRotateGunAngle(findTheAngle(e,
-                    gp.player.getAdjustedX(), gp.player.getAdjustedY()) + 15);
+                double mouseWX = e.getX() + gp.player.worldX - gp.player.getAdjustedX();
+                double mouseWY = e.getY() + gp.player.worldY - gp.player.getAdjustedY();
+
+                gp.player.getAmmo().setDx(mouseWX - gp.player.getAmmo().worldX);
+                gp.player.getAmmo().setDy(mouseWY - gp.player.getAmmo().worldY);
+
+                gp.projectiles.add(gp.player.getAmmo());
+                gp.player.getAmmo().setRotateAngle(findTheAngle(e, gp.player.getAdjustedX(),
+                        gp.player.getAdjustedY() - 10) + 15);
+            }
         }
     }
 }

@@ -150,7 +150,7 @@ public abstract class Entity extends PositionKeeper {
         gp.cChecker.checkObject(this, false);
         gp.cChecker.checkPlayer(this);
         gp.cChecker.checkEntity(this, gp.npc);
-        gp.cChecker.checkPlayerProjectiles(this);
+        gp.cChecker.checkProjectiles(this);
 
         if(!isStopped) moveEntity();
 
