@@ -1,6 +1,7 @@
 package main;
 
 import entity.Entity;
+import entity.Player;
 import object.weapon.projectile.Projectile;
 
 import static main.GamePanel.TILE_SIZE;
@@ -268,6 +269,8 @@ public class CollisionChecker {
     public void checkProjectiles(Entity entity) {
         for(Projectile projectile : gp.projectiles) {
             if(projectile != null) {
+
+                if(entity instanceof Player && projectile.getUser() instanceof Player) continue;
 
                 entity.getSolidArea().x = entity.worldX + entity.getSolidArea().x;
                 entity.getSolidArea().y = entity.worldY + entity.getSolidArea().y;

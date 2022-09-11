@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     // SYSTEM
     Thread gameThread;
     public KeyHandler keyH = new KeyHandler(this);
-    MouseHandler mouseH = new MouseHandler(this);
+    public MouseHandler mouseH = new MouseHandler(this);
     SoundHandler music = new SoundHandler();
     SoundHandler se = new SoundHandler();
     TileManager tileM = new TileManager(this);
@@ -52,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable {
     public EntityPlacer entPlacer = new EntityPlacer(this);
 
     // ENTITY
-    public Player player = new Player(this, keyH);
+    public Player player = new Player(this, keyH, mouseH);
     public SuperObject[] objects = new SuperObject[100];
     public Entity[] npc = new Entity[10];
     public ArrayList<Projectile> projectiles = new ArrayList<>();

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import main.GamePanel;
 import main.KeyHandler;
+import main.MouseHandler;
 import object.weapon.projectile.PRJ_Pink_Fireball;
 import object.weapon.projectile.Projectile;
 import object.weapon.gun.WPN_Staff_Virtue;
@@ -11,6 +12,7 @@ import object.weapon.Weapon;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import static main.GamePanel.*;
@@ -18,6 +20,7 @@ import static main.GamePanel.*;
 public class Player extends Entity {
 
     KeyHandler keyH;
+    MouseHandler mouseH;
 
     public final int screenX, screenY;
 
@@ -32,17 +35,21 @@ public class Player extends Entity {
     @Setter
     private boolean attacking;
 
+    @Setter
+    private MouseEvent e;
+
     @Getter
-    private Weapon gun;
+    private Weapon weapon;
 
     @Getter
     private Projectile ammo;
 
-    public Player (GamePanel gp, KeyHandler keyH) {
+    public Player (GamePanel gp, KeyHandler keyH, MouseHandler mouseH) {
 
         super(gp);
 
         this.keyH = keyH;
+        this.mouseH = mouseH;
 
         imgPath = "player/sprites/";
         width = TILE_SIZE;
@@ -74,8 +81,8 @@ public class Player extends Entity {
         currentLife = maxLife;
 
         // INVENTORY
-        gun = new WPN_Staff_Virtue(gp);
-        ammo = new PRJ_Pink_Fireball(gp, gun);
+        weapon = new WPN_Staff_Virtue(gp);
+        ammo = new PRJ_Pink_Fireball(gp, weapon);
     }
 
     private void getPlayerMoveImages() {
@@ -118,6 +125,7 @@ public class Player extends Entity {
 
         // CHECK NPC COLLISION
         gp.cChecker.checkEntity(this, gp.npc);
+        gp.cChecker.checkProjectiles(this);
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         moveEntity();
@@ -132,6 +140,35 @@ public class Player extends Entity {
             spriteCounterSide = 0;
         }
 
+        if(!ammo.isAlive() && mouseH.lmbPressed) setAttack(e);
+    }
+
+    private void setAttack(MouseEvent e) {
+
+        if(gp.player.getWeapon().isRanged()) {
+            if((e.getX() > adjustedX + TILE_SIZE || e.getY() > adjustedY + TILE_SIZE) ||
+                    (e.getX() < adjustedX - TILE_SIZE || e.getY() < adjustedY - TILE_SIZE)) {
+
+                gp.playSE(this.getWeapon().getSoundNum());
+
+                ammo.setProjectile(this.worldX, this.worldY, true, this);
+
+                double mouseWX = e.getX() + this.worldX - this.adjustedX;
+                double mouseWY = e.getY() + this.worldY - this.adjustedY;
+
+                ammo.setDx(mouseWX - ammo.worldX);
+                ammo.setDy(mouseWY - ammo.worldY);
+                ammo.setRotateAngle(findTheAngle(e, this.adjustedX, this.adjustedY - 10) + 15);
+
+                gp.projectiles.add(gp.player.getAmmo());
+            }
+        }
+    }
+
+    private double findTheAngle(MouseEvent e, double x, double y) {
+        double dx = e.getX() - x;
+        double dy = e.getY() - y;
+        return Math.atan2(dy, dx);
     }
 
     // FOR INTERACTIVE OBJECTS
@@ -190,6 +227,6 @@ public class Player extends Entity {
 
     private void drawAttack(Graphics2D g2, BufferedImage image, int x, int y) {
         g2.drawImage(image, x, y, null);
-        g2.drawImage(gun.getWeaponImage(), x, y - 10, null);
+        g2.drawImage(weapon.getWeaponImage(), x, y - 10, null);
     }
 }

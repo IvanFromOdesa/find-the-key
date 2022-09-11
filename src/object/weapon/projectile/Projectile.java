@@ -18,7 +18,6 @@ public abstract class Projectile extends SuperObject {
 
     @Getter
     private final BufferedImage projectileImage;
-
     public double worldX, worldY;
 
     @Getter
@@ -39,7 +38,9 @@ public abstract class Projectile extends SuperObject {
 
     @Setter
     private double rotateAngle;
-    Entity user;
+
+    @Getter
+    private Entity user;
 
     protected Projectile(GamePanel gp, int width, int height,
                          String imagePath, Weapon gun) {
@@ -92,7 +93,7 @@ public abstract class Projectile extends SuperObject {
 
         // COLLISION
         /*g2.setColor(Color.RED);
-        g2.drawRect((int) (worldX + solidArea.x), (int) (worldY + solidArea.y),
+        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y,
                 solidArea.width, solidArea.height);*/
     }
 

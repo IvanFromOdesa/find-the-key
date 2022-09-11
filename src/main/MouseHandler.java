@@ -14,6 +14,8 @@ public class MouseHandler extends JFrame implements MouseListener, MouseMotionLi
 
     GamePanel gp;
 
+    public boolean lmbPressed;
+
     public MouseHandler(GamePanel gp) {
         this.gp = gp;
     }
@@ -28,9 +30,9 @@ public class MouseHandler extends JFrame implements MouseListener, MouseMotionLi
         if(gp.gameState == gp.PLAY_STATE) {
             if(Objects.equals(gp.player.getDirection(), "stand")) {
                 if(e.getButton() == MouseEvent.BUTTON1) {
+                    lmbPressed = true;
+                    gp.player.setE(e);
                     gp.player.setAttacking(true);
-
-                    if(!gp.player.getAmmo().isAlive()) setPlayerAttack(e);
                 }
             }
         }
@@ -40,6 +42,7 @@ public class MouseHandler extends JFrame implements MouseListener, MouseMotionLi
     public void mouseReleased(MouseEvent e) {
         if(gp.gameState == gp.PLAY_STATE) {
             if(e.getButton() == MouseEvent.BUTTON1) {
+                lmbPressed = false;
                 gp.player.setAttacking(false);
             }
         }
@@ -71,36 +74,6 @@ public class MouseHandler extends JFrame implements MouseListener, MouseMotionLi
                         repaint();
                     }
                 }
-            }
-        }
-    }
-
-    private double findTheAngle(MouseEvent e, double x, double y) {
-        double dx = e.getX() - x;
-        double dy = e.getY() - y;
-        return Math.atan2(dy, dx);
-    }
-
-    private void setPlayerAttack(MouseEvent e) {
-
-        if(gp.player.getGun().isRanged()) {
-            if((e.getX() > gp.player.getAdjustedX() + TILE_SIZE
-                    || e.getY() > gp.player.getAdjustedY() + TILE_SIZE) ||
-                    (e.getX() < gp.player.getAdjustedX() - TILE_SIZE ||
-                            e.getY() < gp.player.getAdjustedY() - TILE_SIZE)) {
-
-                gp.player.getAmmo().setProjectile(gp.player.worldX,
-                        gp.player.worldY, true, gp.player);
-
-                double mouseWX = e.getX() + gp.player.worldX - gp.player.getAdjustedX();
-                double mouseWY = e.getY() + gp.player.worldY - gp.player.getAdjustedY();
-
-                gp.player.getAmmo().setDx(mouseWX - gp.player.getAmmo().worldX);
-                gp.player.getAmmo().setDy(mouseWY - gp.player.getAmmo().worldY);
-
-                gp.projectiles.add(gp.player.getAmmo());
-                gp.player.getAmmo().setRotateAngle(findTheAngle(e, gp.player.getAdjustedX(),
-                        gp.player.getAdjustedY() - 10) + 15);
             }
         }
     }

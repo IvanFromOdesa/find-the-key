@@ -12,5 +12,6 @@ public class WPN_Staff_Virtue extends Weapon {
         name = "Staff_Virtue";
         damage = 5;
         ranged = true;
+        soundNum = 0;
     }
 }

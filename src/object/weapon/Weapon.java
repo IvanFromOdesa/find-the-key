@@ -17,6 +17,9 @@ public abstract class Weapon extends SuperObject {
     @Getter
     protected boolean ranged;
 
+    @Getter
+    protected int soundNum;
+
     protected Weapon(GamePanel gp, int width, int height, boolean collision, String imagePath) {
         super(gp, width, height, imagePath);
 

@@ -10,8 +10,8 @@ public class SoundHandler {
     URL[] soundURL = new URL[10];
 
     public SoundHandler() {
-       /* soundURL[0] = getClass().getResource("/sounds/");
-        soundURL[1] = getClass().getResource("/sounds/");
+        soundURL[0] = getClass().getResource("/sounds/staff_shot.wav");
+        /*soundURL[1] = getClass().getResource("/sounds/");
         soundURL[2] = getClass().getResource("/sounds/");
         soundURL[3] = getClass().getResource("/sounds/");*/
     }

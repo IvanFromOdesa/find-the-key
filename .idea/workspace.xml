@@ -4,22 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="781ecca2-c6ff-4ff8-93de-c96351517bc7" name="Changes" comment="Added weapons (gun) and projectiles. Added new Object">
-      <change afterPath="$PROJECT_DIR$/res/inventory/magic_staff.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/inventory/pink_fireball.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/player/sprites/attack/Vita_attack_up.png" afterDir="false" />
+    <list default="true" id="781ecca2-c6ff-4ff8-93de-c96351517bc7" name="Changes" comment="Rework for projectiles">
+      <change afterPath="$PROJECT_DIR$/res/sounds/staff_shot.wav" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/inventory/ammo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/inventory/gun_virtue.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/CollisionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/CollisionChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GamePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/MouseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/MouseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/object/SuperObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/object/SuperObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/SoundHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/SoundHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/object/weapon/Weapon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/object/weapon/Weapon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/object/weapon/gun/WPN_Gun_Virtue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/object/weapon/gun/WPN_Staff_Virtue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/object/weapon/projectile/PRJ_Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/object/weapon/projectile/PRJ_Pink_Fireball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/object/weapon/gun/WPN_Staff_Virtue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/object/weapon/gun/WPN_Staff_Virtue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/object/weapon/projectile/Projectile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/object/weapon/projectile/Projectile.java" afterDir="false" />
     </list>
     <list id="cb933f19-6be4-4785-951a-8526ed4d66ca" name="Changes by Ivan" comment="Changes by Ivan" />
@@ -55,28 +49,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ivan/IdeaProjects/prcatice-game/res/park/objects/trees&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Ivan/IdeaProjects/prcatice-game/res/sounds"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\sounds" />
       <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\park\objects\trees" />
       <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\player\ui" />
       <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\player" />
       <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\park\buildings\wooden-fence" />
-      <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\park\buildings" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\inventory" />
+      <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\sounds" />
       <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\player\sprites\attack" />
+      <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\inventory" />
       <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\player" />
       <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\player\sprites\move" />
-      <recent name="C:\Users\Ivan\IdeaProjects\prcatice-game\res\player\sprites" />
     </key>
   </component>
   <component name="RunManager">
@@ -141,7 +135,7 @@
       <workItem from="1662813794279" duration="19579000" />
       <workItem from="1662838104957" duration="4961000" />
       <workItem from="1662844865108" duration="1194000" />
-      <workItem from="1662900302875" duration="19265000" />
+      <workItem from="1662900302875" duration="23814000" />
     </task>
     <task id="LOCAL-00001" summary="Update 1">
       <created>1659716102352</created>
@@ -325,7 +319,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662836026021</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Rework for projectiles">
+      <created>1662929567545</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1662929567545</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -366,7 +367,8 @@
     <MESSAGE value="New Object. Moving directories" />
     <MESSAGE value="Fixes. Added HUD, Health Bar (Depends on Player's health)" />
     <MESSAGE value="Added weapons (gun) and projectiles. Added new Object" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added weapons (gun) and projectiles. Added new Object" />
+    <MESSAGE value="Rework for projectiles" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rework for projectiles" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
