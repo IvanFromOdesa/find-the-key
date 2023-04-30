@@ -1,5 +1,6 @@
-package entity;
+package entity.npc;
 
+import entity.Entity;
 import main.GamePanel;
 
 import java.awt.Rectangle;
@@ -19,6 +20,10 @@ public class NPC_Natalie extends Entity {
 
         maxLife = 100;
         currentLife = maxLife;
+        npc = true;
+
+        sfxAdjustScreenX = 3;
+        sfxAdjustScreenY = 36;
 
         getNPC_NatalieImage();
         setDialogue();

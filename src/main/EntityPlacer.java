@@ -1,9 +1,10 @@
 package main;
 
-import entity.NPC_Elvie;
-import entity.NPC_Monk;
-import entity.NPC_Natalie;
-import entity.NPC_Viki;
+import entity.enemy.ENM_Green_Slime;
+import entity.npc.NPC_Elvie;
+import entity.npc.NPC_Monk;
+import entity.npc.NPC_Natalie;
+import entity.npc.NPC_Viki;
 import object.building.BLD_Family_House;
 import object.building.wooden_fence.*;
 import object.obstacle.bush.OBJ_Bush_1;
@@ -97,15 +98,23 @@ public class EntityPlacer {
         setEntitiesManually(gp.objects, new OBJ_Tree_Cherry(gp), 44, 65, 415);
     }
 
-    public void setNpc() {
+    /**
+     * Sets entities statically at the start of the game
+     */
+    public void setEntities() {
         // MONK
-        setEntitiesByTile(gp.npc, new NPC_Monk(gp), 0, 12, 12);
+        setEntitiesByTile(gp.entities, new NPC_Monk(gp), 0, 12, 12);
         // NATALIE
-        setEntitiesByTile(gp.npc, new NPC_Natalie(gp), 1, 13, 12);
+        setEntitiesByTile(gp.entities, new NPC_Natalie(gp), 1, 13, 12);
         // VIKI
-        setEntitiesByTile(gp.npc, new NPC_Viki(gp), 2, 29, 16);
+        setEntitiesByTile(gp.entities, new NPC_Viki(gp), 2, 29, 16);
         // ELVIE
-        setEntitiesByTile(gp.npc, new NPC_Elvie(gp), 3, 14, 13);
+        setEntitiesByTile(gp.entities, new NPC_Elvie(gp), 3, 14, 13);
+
+        // TODO: make a spawner class
+        setEntitiesByTile(gp.entities, new ENM_Green_Slime(gp), 4, 10, 12);
+        //setEntitiesByTile(gp.entities, new ENM_Green_Slime(gp), 5, 26, 17);
+        setEntitiesByTile(gp.entities, new ENM_Green_Slime(gp), 6, 32, 10);
     }
 
     private <T extends PositionKeeper> void setEntitiesByTile(T[] array, T ent, int index, int worldX, int worldY) {

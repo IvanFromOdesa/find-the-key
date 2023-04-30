@@ -66,7 +66,7 @@ public class MouseHandler extends JFrame implements MouseListener, MouseMotionLi
     @Override
     public void mouseMoved(MouseEvent e) {
         if(gp.gameState == gp.PLAY_STATE) {
-            for(Entity entity : gp.npc) {
+            for(Entity entity : gp.entities) {
                 if(entity != null) {
                     if((e.getPoint().x > entity.screenX && e.getPoint().x < entity.screenX + TILE_SIZE) &&
                             (e.getPoint().y > entity.screenY && e.getPoint().y < entity.screenY + TILE_SIZE)) {

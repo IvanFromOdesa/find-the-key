@@ -15,7 +15,11 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import static main.GamePanel.*;
+import static main.GamePanel.SCREEN_HEIGHT;
+import static main.GamePanel.SCREEN_WIDTH;
+import static main.GamePanel.TILE_SIZE;
+import static main.GamePanel.WORLD_HEIGHT;
+import static main.GamePanel.WORLD_WIDTH;
 
 public class Player extends Entity {
 
@@ -62,6 +66,11 @@ public class Player extends Entity {
         solidAreaDefaultX = 15;
         solidAreaDefaultY = 36;
 
+        sfxAdjustScreenX = 4;
+        sfxAdjustScreenY = 38;
+
+        player = true;
+
         setDefaultValues();
         getPlayerMoveImages();
         getPlayerAttackImages();
@@ -74,6 +83,8 @@ public class Player extends Entity {
 
         // SPEED
         speed = 4;
+        // Default speed value. Speed can be changed if stunned etc.
+        initSpeed = speed;
         direction = "stand";
 
         // LIFE
@@ -106,41 +117,51 @@ public class Player extends Entity {
 
     @Override
     public void update() {
+        if (!stunned) {
+            gp.shaker.resetScreenPosition();
+            speed = initSpeed;
+            if (!attacking) {
+                if(keyH.upPressed) direction = "up";
+                else if(keyH.downPressed) direction = "down";
+                else if(keyH.leftPressed) direction = "left";
+                else if(keyH.rightPressed) direction = "right";
+                else direction = "stand";
+            }
+            checkCollision();
+            // IF COLLISION IS FALSE, PLAYER CAN MOVE
+            moveEntity();
 
-        if(!attacking) {
-            if(keyH.upPressed) direction = "up";
-            else if(keyH.downPressed) direction = "down";
-            else if(keyH.leftPressed) direction = "left";
-            else if(keyH.rightPressed) direction = "right";
-            else direction = "stand";
+            spriteCounterSide ++;
+
+            // SIDE PLAYER's MOVEMENT
+            if (spriteCounterSide > 10) {
+                if(spriteNumSide == 1) spriteNumSide = 2;
+                else if (spriteNumSide == 2) spriteNumSide = 3;
+                else if (spriteNumSide == 3) spriteNumSide = 1;
+                spriteCounterSide = 0;
+            }
+
+            if (!ammo.isAlive() && mouseH.lmbPressed && attacking) setAttack(e);
+        } else {
+            moveOnStun();
+            gp.shaker.shake();
         }
+    }
 
+    @Override
+    protected void checkCollision() {
         // CHECK TILE COLLISION
         collisionOn = false;
+        collisionOnEntity = false;
         gp.cChecker.checkTile(this);
 
         // CHECK OBJECT COLLISION
         int objIndex = gp.cChecker.checkObject(this, true);
         pickUpPlayObject(objIndex);
 
-        // CHECK NPC COLLISION
-        gp.cChecker.checkEntity(this, gp.npc);
+        // CHECK NPC OR ENEMY COLLISION
+        gp.cChecker.checkEntity(this, gp.entities);
         gp.cChecker.checkProjectiles(this);
-
-        // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        moveEntity();
-
-        spriteCounterSide ++;
-
-        // SIDE PLAYER's MOVEMENT
-        if(spriteCounterSide > 10) {
-            if(spriteNumSide == 1) spriteNumSide = 2;
-            else if (spriteNumSide == 2) spriteNumSide = 3;
-            else if (spriteNumSide == 3) spriteNumSide = 1;
-            spriteCounterSide = 0;
-        }
-
-        if(!ammo.isAlive() && mouseH.lmbPressed) setAttack(e);
     }
 
     private void setAttack(MouseEvent e) {
@@ -149,9 +170,13 @@ public class Player extends Entity {
             if((e.getX() > adjustedX + TILE_SIZE || e.getY() > adjustedY + TILE_SIZE) ||
                     (e.getX() < adjustedX - TILE_SIZE || e.getY() < adjustedY - TILE_SIZE)) {
 
-                gp.playSE(this.getWeapon().getSoundNum());
+                //gp.playSE(this.getWeapon().getSoundNum());
 
-                ammo.setProjectile(this.worldX, this.worldY, true, this);
+                if (e.getY() > this.screenY) ammo.setProjectile(this.worldX, this.worldY, true, this);
+                else if (e.getY() < this.screenY) {
+                    // x offset
+                    ammo.setProjectile(this.worldX + 20, this.worldY, true, this);
+                }
 
                 double mouseWX = e.getX() + this.worldX - this.adjustedX;
                 double mouseWY = e.getY() + this.worldY - this.adjustedY;
@@ -183,7 +208,8 @@ public class Player extends Entity {
         switch (direction) {
             case "stand":
                 if(!attacking) image = stand;
-                else image = attackDown;
+                else if (e.getY() > this.screenY) image = attackDown;
+                else image = attackUp;
                 break;
             case "down":
                 if(spriteNum == 1) image = down1;
@@ -216,17 +242,24 @@ public class Player extends Entity {
         adjustedX = x;
         adjustedY = y;
 
+        gp.SFXAdjuster.drawShadow(g2, x, y, sfxAdjustScreenX, sfxAdjustScreenY);
         if(!attacking) g2.drawImage(image, x, y, null);
         if(attacking) drawAttack(g2, image, x, y);
 
         // DISPLAY COLLISION
         /*g2.setColor(Color.RED);
-        g2.drawRect(screenX + getSolidArea().x, screenY + getSolidArea().y,
+        g2.drawRect(x + getSolidArea().x, y + getSolidArea().y,
                 getSolidArea().width, getSolidArea().height);*/
     }
 
     private void drawAttack(Graphics2D g2, BufferedImage image, int x, int y) {
-        g2.drawImage(image, x, y, null);
-        g2.drawImage(weapon.getWeaponImage(), x, y - 10, null);
+        if (e.getY() > this.screenY) {
+            g2.drawImage(image, x, y, null);
+            g2.drawImage(weapon.getWeaponImage(), x, y - 10, null);
+        } else {
+            g2.drawImage(weapon.getWeaponImage(), x + 20, y - 15, null);
+            g2.drawImage(image, x, y, null);
+        }
+        if (!ammo.isAlive()) attacking = false;
     }
 }

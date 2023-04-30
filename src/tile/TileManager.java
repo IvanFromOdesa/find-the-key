@@ -7,8 +7,7 @@ import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,6 +25,7 @@ public class TileManager extends PositionKeeper {
 
     @Getter
     int[][] mapTileNum;
+    private final boolean drawPath = true;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -36,7 +36,7 @@ public class TileManager extends PositionKeeper {
         loadMap("/maps/map.txt");
     }
 
-    public void getTileImage() {
+    private void getTileImage() {
         // LOCATION: PARK
 
         // GRASS
@@ -145,7 +145,7 @@ public class TileManager extends PositionKeeper {
     }
 
     // LOAD THE TILES FROM txt FILE
-    public void loadMap(String filePath) {
+    private void loadMap(String filePath) {
         try {
             InputStream is = getClass().getResourceAsStream(filePath);
             assert is != null;
@@ -222,6 +222,19 @@ public class TileManager extends PositionKeeper {
            if(worldCol == MAX_WORLD_COLUMN) {
                worldCol = 0;
                worldRow++;
+           }
+       }
+
+       if (drawPath) {
+           g2.setColor(new Color(255, 0, 0, 70));
+
+           for (int i = 0; i < gp.pf.getPathList().size(); i ++) {
+               int worldX = gp.pf.getPathList().get(i).getCol() * TILE_SIZE;
+               int worldY = gp.pf.getPathList().get(i).getRow() * TILE_SIZE;
+               int screenX = worldX - gp.player.worldX + gp.player.screenX;
+               int screenY = worldY - gp.player.worldY + gp.player.screenY;
+
+               g2.fillRect(screenX, screenY, TILE_SIZE, TILE_SIZE);
            }
        }
     }

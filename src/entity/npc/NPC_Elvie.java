@@ -1,5 +1,6 @@
-package entity;
+package entity.npc;
 
+import entity.Entity;
 import main.GamePanel;
 
 import java.awt.Rectangle;
@@ -20,6 +21,9 @@ public class NPC_Elvie extends Entity {
 
         maxLife = 180;
         currentLife = maxLife;
+        npc = true;
+        sfxAdjustScreenX = 9;
+        sfxAdjustScreenY = 38;
 
         getNPC_ElvieImage();
         setDialogue();

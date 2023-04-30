@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Objects;
 
 public final class UtilityTool {
 
@@ -21,7 +23,7 @@ public final class UtilityTool {
         return scaledImage;
     }
 
-    public static  <T extends PositionKeeper> void adjustCamera(GamePanel gp, T t, int worldX, int worldY) {
+    public static <T extends PositionKeeper> void adjustCamera(GamePanel gp, T t, int worldX, int worldY) {
         if(gp.player.worldX < gp.player.screenX) t.screenX = worldX;
         if(gp.player.worldY < gp.player.screenY) t.screenY = worldY;
         if(SCREEN_WIDTH - gp.player.screenX > WORLD_WIDTH - gp.player.worldX) t.screenX = SCREEN_WIDTH - (WORLD_WIDTH - worldX);
@@ -87,5 +89,17 @@ public final class UtilityTool {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
         return gd.getDefaultConfiguration();
+    }
+
+    public static <T> T[] removeObjFromArray(T[] initArr, T objToRemove) {
+        int i, j;
+        for (i = 0, j = 0; j < initArr.length; j++) {
+            if (Objects.nonNull(initArr[j])) {
+                if (!initArr[j].equals(objToRemove)) {
+                    initArr[i++] = initArr[j];
+                }
+            }
+        }
+        return Arrays.copyOf(initArr, i);
     }
 }

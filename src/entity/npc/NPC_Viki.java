@@ -1,5 +1,6 @@
-package entity;
+package entity.npc;
 
+import entity.Entity;
 import main.GamePanel;
 
 import java.awt.Rectangle;
@@ -19,6 +20,10 @@ public class NPC_Viki extends Entity {
 
         maxLife = 70;
         currentLife = maxLife;
+        npc = true;
+
+        sfxAdjustScreenX = 4;
+        sfxAdjustScreenY = 38;
 
         getNPC_VikiImage();
         setDialogue();

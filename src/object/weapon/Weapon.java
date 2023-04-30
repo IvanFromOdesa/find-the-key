@@ -21,10 +21,10 @@ public abstract class Weapon extends SuperObject {
     protected int soundNum;
 
     protected Weapon(GamePanel gp, int width, int height, boolean collision, String imagePath) {
-        super(gp, width, height, imagePath);
+        super(gp, width, height, imagePath, false);
 
         this.collision = collision;
-        weaponImage = image;
+        weaponImage = (BufferedImage) image;
     }
 
     public void update() {

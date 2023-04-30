@@ -1,5 +1,6 @@
-package entity;
+package entity.npc;
 
+import entity.Entity;
 import main.GamePanel;
 
 import java.awt.Rectangle;
@@ -19,13 +20,16 @@ public class NPC_Monk extends Entity {
 
         maxLife = 110;
         currentLife = maxLife;
+        npc = true;
+
+        sfxAdjustScreenX = 4;
+        sfxAdjustScreenY = 36;
 
         getNPC_MonkImage();
         setDialogue();
     }
 
     private void getNPC_MonkImage() {
-
         stand = setup("monk_default");
         down1 = setup("monk_down_1");
         down2 = setup("monk_down_2");
@@ -41,7 +45,7 @@ public class NPC_Monk extends Entity {
         DIALOGUES[0] = "Watch where you going!";
         DIALOGUES[1] = "I have no time for you!";
         DIALOGUES[2] = "Whatever";
-        DIALOGUES[3] = "Get out of my way, girl";
+        DIALOGUES[3] = "Get out of my way, gal";
     }
 
     @Override

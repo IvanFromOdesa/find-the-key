@@ -6,7 +6,9 @@ import main.PositionKeeper;
 import main.UtilityTool;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -20,7 +22,7 @@ import static main.GamePanel.WORLD_WIDTH;
 
 public class SuperObject extends PositionKeeper {
 
-    protected BufferedImage image;
+    protected Image image;
 
     @Getter
     protected String name;
@@ -55,21 +57,28 @@ public class SuperObject extends PositionKeeper {
     }
 
     protected SuperObject(GamePanel gp, int width, int height,
-                       String imagePath) {
+                       String imagePath, boolean animated) {
         this.gp = gp;
         this.width = width;
         this.height = height;
 
-        loadImage(imagePath);
+        if (animated) image = loadImageAnimated(imagePath);
+        else loadImage(imagePath);
     }
 
     protected void loadImage(String imagePath) {
         try {
             image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
-            image = UtilityTool.scaleImage(image, width, height);
+            image = UtilityTool.scaleImage((BufferedImage) image, width, height);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    protected Image loadImageAnimated(String imagePath) {
+        Image image = new ImageIcon(Objects.requireNonNull(
+                getClass().getResource(imagePath))).getImage();
+        return image.getScaledInstance(width, height, Image.SCALE_DEFAULT);
     }
 
     @Override

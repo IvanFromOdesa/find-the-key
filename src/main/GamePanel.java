@@ -1,7 +1,9 @@
 package main;
 
+import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
+import graphics.SFXAdjuster;
 import object.SuperObject;
 import object.weapon.projectile.Projectile;
 import tile.TileManager;
@@ -14,6 +16,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -35,17 +38,21 @@ public class GamePanel extends JPanel implements Runnable {
     public static final int WORLD_HEIGHT = TILE_SIZE * MAX_WORLD_ROW;
 
     // FPS
-    int FPS = 60;
+    private final int FPS = 60;
 
     // SYSTEM
     Thread gameThread;
     public KeyHandler keyH = new KeyHandler(this);
-    public MouseHandler mouseH = new MouseHandler(this);
+    public TileManager tileM = new TileManager(this);
+    MouseHandler mouseH = new MouseHandler(this);
     SoundHandler music = new SoundHandler();
     SoundHandler se = new SoundHandler();
-    TileManager tileM = new TileManager(this);
     UtilityTool uTool = new UtilityTool();
     Font font = uTool.setFont(30f);
+    public UI ui = new UI(this);
+    public ScreenShaker shaker = new ScreenShaker(this);
+    public SFXAdjuster SFXAdjuster = new SFXAdjuster(this);
+    public PathFinder pf = new PathFinder(this);
 
     // COLLISION
     public CollisionChecker cChecker = new CollisionChecker(this);
@@ -54,9 +61,10 @@ public class GamePanel extends JPanel implements Runnable {
     // ENTITY
     public Player player = new Player(this, keyH, mouseH);
     public SuperObject[] objects = new SuperObject[100];
-    public Entity[] npc = new Entity[10];
-    public ArrayList<Projectile> projectiles = new ArrayList<>();
-    ArrayList<PositionKeeper> entList = new ArrayList<>();
+    public Entity[] entities = new Entity[10];
+    public List<Projectile> projectiles = new ArrayList<>();
+    public List<Entity> entToRemove = new ArrayList<>();
+    List<PositionKeeper> entList = new ArrayList<>();
 
     private int timer;
 
@@ -65,9 +73,6 @@ public class GamePanel extends JPanel implements Runnable {
     public final  int PLAY_STATE = 1;
     public final int PAUSE_STATE = 2;
     public final int DIALOGUE_STATE = 3;
-
-    public UI ui = new UI(this);
-
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -111,7 +116,7 @@ public class GamePanel extends JPanel implements Runnable {
     // SETTING UP OBJECTS, NPC etc.
     public void setUpGame() {
         entPlacer.setObject();
-        entPlacer.setNpc();
+        entPlacer.setEntities();
         //playMusic(0);
         gameState = PLAY_STATE;
     }
@@ -126,12 +131,18 @@ public class GamePanel extends JPanel implements Runnable {
             // PLAYER
             player.update();
 
-            // NPCs
-            for(Entity entity : npc) {if(entity != null) entity.update();}
+            // ENTITIES
+            for(Entity entity : entities) {if(entity != null) entity.update();}
+            if (!entToRemove.isEmpty()) {
+                for (Entity ent: entToRemove) {
+                    entities = UtilityTool.removeObjFromArray(entities, ent);
+                }
+                entToRemove.clear();
+            }
 
             // PROJECTILES
             for(Projectile projectile : projectiles) {if(projectile != null) projectile.update();}
-            projectiles.removeIf(p -> !p.isAlive());
+            projectiles.removeIf(prj -> !prj.isAlive());
 
             // RESETTING PRESSED BUTTONS
             timer++;
@@ -159,7 +170,7 @@ public class GamePanel extends JPanel implements Runnable {
         // ADDING PLAYER, NPC AND OBJECTS INTO ONE ENTITY LIST
         entList.add(player);
 
-        for (Entity entity : npc) {if (entity != null) entList.add(entity);}
+        for (Entity entity : entities) {if (entity != null) entList.add(entity);}
 
         for (SuperObject object : objects) {if (object != null) entList.add(object);}
 
